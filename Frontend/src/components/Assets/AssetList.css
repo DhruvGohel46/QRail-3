@@ -1,0 +1,192 @@
+/* Material Design 3 Variables */
+:root {
+  --md-sys-color-primary: #1976D2;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-surface: #FFFFFF;
+  --md-sys-color-on-surface: #1C1B1F;
+  --md-sys-color-on-surface-variant: #49454F;
+  --md-sys-color-surface-variant: #F4F4F4;
+  --md-sys-color-outline-variant: #CAC4D0;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-elevation-level1: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level2: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --md-sys-typescale-headline-small: 24px;
+  --md-sys-typescale-body-large: 16px;
+  --md-sys-typescale-body-medium: 14px;
+  --md-sys-typescale-label-large: 14px;
+}
+
+/* Asset List Container */
+.asset-list-container {
+  width: 100%;
+}
+
+/* Page Header */
+.page-header {
+  margin-bottom: var(--grid-gap-desktop);
+}
+
+.page-title {
+  font-size: var(--md-sys-typescale-headline-small);
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface);
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: var(--md-sys-typescale-body-large);
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+}
+
+/* Tablet Adjustments */
+@media screen and (max-width: var(--breakpoint-tablet)) {
+  .page-header {
+    margin-bottom: var(--grid-gap-tablet);
+  }
+
+  .page-title {
+    font-size: var(--md-sys-typescale-title-large);
+  }
+}
+
+/* Mobile Adjustments */
+@media screen and (max-width: var(--breakpoint-mobile)) {
+  .page-header {
+    margin-bottom: var(--grid-gap-mobile);
+  }
+
+  .page-title {
+    font-size: var(--md-sys-typescale-title-medium);
+  }
+}
+
+/* Search Results Info */
+.search-results-info {
+  margin: var(--grid-gap-mobile) 0;
+  padding: 12px 16px;
+  background-color: var(--md-sys-color-surface-variant);
+  border-radius: var(--md-sys-shape-corner-medium);
+  border-left: 4px solid var(--md-sys-color-primary);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Table Container */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--md-sys-shape-corner-medium);
+  background: var(--md-sys-color-surface);
+}
+
+@media screen and (max-width: var(--breakpoint-mobile)) {
+  .search-results-info {
+    margin: var(--grid-gap-mobile) 0;
+    padding: 10px 12px;
+  }
+}
+
+.results-count {
+  margin: 0;
+  font-size: var(--md-sys-typescale-body-medium);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.results-count strong {
+  color: var(--md-sys-color-primary);
+  font-weight: 600;
+}
+
+/* Button Styling */
+.add-asset-btn {
+  background: linear-gradient(135deg, var(--md-sys-color-primary) 0%, #1565C0 100%);
+  color: var(--md-sys-color-on-primary);
+  padding: 12px 24px;
+  border-radius: var(--md-sys-shape-corner-large);
+  font-size: var(--md-sys-typescale-label-large);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: var(--md-sys-elevation-level1);
+  border: none;
+  cursor: pointer;
+}
+
+.add-asset-btn:hover {
+  box-shadow: var(--md-sys-elevation-level2);
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #1565C0 0%, var(--md-sys-color-primary) 100%);
+}
+
+.add-asset-btn:active {
+  transform: translateY(0);
+}
+
+.add-asset-btn .material-icons-round {
+  font-size: 20px;
+}
+
+/* Tablet Adjustments */
+@media screen and (max-width: var(--breakpoint-tablet)) {
+  .add-asset-btn {
+    padding: 10px 20px;
+  }
+}
+
+/* Mobile Adjustments */
+@media screen and (max-width: var(--breakpoint-mobile)) {
+  .add-asset-btn {
+    padding: 12px 16px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .asset-list-container {
+    padding: 0;
+  }
+
+  .page-header {
+    flex-direction: column;
+    margin-bottom: 24px;
+    gap: 16px;
+  }
+
+  .add-asset-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .md-card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .md-card {
+    padding: 12px;
+  }
+
+  .search-results-info {
+    padding: 10px 12px;
+  }
+
+  .md-button {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}

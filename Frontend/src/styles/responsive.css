@@ -1,0 +1,190 @@
+/* Responsive Breakpoints and Layout System */
+:root {
+  /* Breakpoints */
+  --breakpoint-tablet: 1200px;
+  --breakpoint-mobile: 768px;
+  
+  /* Container widths */
+  --container-max-width: 1400px;
+  --container-padding-desktop: 32px;
+  --container-padding-tablet: 24px;
+  --container-padding-mobile: 16px;
+
+  /* Grid gaps */
+  --grid-gap-desktop: 24px;
+  --grid-gap-tablet: 20px;
+  --grid-gap-mobile: 16px;
+}
+
+/* Grid Layout Base */
+.grid-layout {
+  display: grid;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Default 4-column grid */
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Default 3-column grid */
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Default 2-column grid */
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Container with max-width and responsive padding */
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Tablet Layout (1200px and below) */
+@media screen and (max-width: var(--breakpoint-tablet)) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .container {
+    padding: 0 var(--container-tablet-padding);
+  }
+
+  /* Hide on tablet */
+  .hide-tablet {
+    display: none !important;
+  }
+
+  /* Show on tablet */
+  .show-tablet {
+    display: block !important;
+  }
+
+  /* Tablet-specific spacing */
+  .tablet-gap-16 {
+    gap: 16px;
+  }
+
+  .tablet-p-24 {
+    padding: 24px !important;
+  }
+}
+
+/* Mobile Layout (768px and below) */
+@media screen and (max-width: var(--breakpoint-mobile)) {
+  .grid-4,
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 var(--container-mobile-padding);
+  }
+
+  /* Hide on mobile */
+  .hide-mobile {
+    display: none !important;
+  }
+
+  /* Show on mobile */
+  .show-mobile {
+    display: block !important;
+  }
+
+  /* Mobile-specific spacing */
+  .mobile-gap-12 {
+    gap: 12px;
+  }
+
+  .mobile-p-16 {
+    padding: 16px !important;
+  }
+}
+
+/* Flex Utilities */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive flex direction */
+@media screen and (max-width: var(--breakpoint-mobile)) {
+  .mobile-flex-column {
+    flex-direction: column !important;
+  }
+}
+
+/* Spacing Utilities */
+.gap-24 { gap: 24px; }
+.gap-16 { gap: 16px; }
+.gap-12 { gap: 12px; }
+.gap-8 { gap: 8px; }
+
+/* Padding Utilities */
+.p-32 { padding: 32px; }
+.p-24 { padding: 24px; }
+.p-16 { padding: 16px; }
+.p-12 { padding: 12px; }
+
+/* Margin Utilities */
+.m-32 { margin: 32px; }
+.m-24 { margin: 24px; }
+.m-16 { margin: 16px; }
+.m-12 { margin: 12px; }
+
+/* Responsive Text Alignment */
+@media screen and (max-width: var(--breakpoint-mobile)) {
+  .mobile-text-center {
+    text-align: center !important;
+  }
+}
+
+/* Responsive Font Sizes */
+@media screen and (max-width: var(--breakpoint-mobile)) {
+  .mobile-text-sm {
+    font-size: var(--md-sys-typescale-body-small) !important;
+  }
+  
+  .mobile-heading-sm {
+    font-size: var(--md-sys-typescale-headline-small) !important;
+  }
+}
+
+/* Card Layouts */
+.card {
+  background: var(--md-sys-color-surface);
+  border-radius: var(--md-sys-shape-corner-large);
+  box-shadow: var(--md-sys-elevation-level1);
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Responsive card padding */
+@media screen and (max-width: var(--breakpoint-tablet)) {
+  .card {
+    padding: var(--container-tablet-padding);
+  }
+}
+
+@media screen and (max-width: var(--breakpoint-mobile)) {
+  .card {
+    padding: var(--container-mobile-padding);
+  }
+}

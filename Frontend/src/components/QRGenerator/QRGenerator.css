@@ -1,0 +1,479 @@
+/* Material Design 3 Variables */
+:root {
+  --md-sys-color-primary: #1976D2;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #E3F2FD;
+  --md-sys-color-on-primary-container: #0D47A1;
+  --md-sys-color-secondary: #03DAC6;
+  --md-sys-color-surface: #FFFFFF;
+  --md-sys-color-on-surface: #1C1B1F;
+  --md-sys-color-on-surface-variant: #49454F;
+  --md-sys-color-surface-variant: #F4F4F4;
+  --md-sys-color-outline: #79747E;
+  --md-sys-color-outline-variant: #CAC4D0;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-elevation-level1: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level2: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level3: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --md-sys-typescale-headline-small: 24px;
+  --md-sys-typescale-title-large: 22px;
+  --md-sys-typescale-body-large: 16px;
+  --md-sys-typescale-body-medium: 14px;
+  --md-sys-typescale-label-large: 14px;
+  --md-sys-typescale-label-small: 11px;
+}
+
+/* QR Generator Container */
+.qr-generator-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Page Header */
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-size: var(--md-sys-typescale-headline-small);
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface);
+  margin: 0 0 8px 0;
+}
+
+.page-subtitle {
+  font-size: var(--md-sys-typescale-body-large);
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+}
+
+/* QR Generator Grid Layout */
+.qr-generator-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+/* Configuration Section */
+.qr-config-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.qr-config-card {
+  background-color: var(--md-sys-color-surface);
+  border-radius: var(--md-sys-shape-corner-large);
+  box-shadow: var(--md-sys-elevation-level1);
+  padding: 24px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.qr-config-card:hover {
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.card-header h3 {
+  font-size: var(--md-sys-typescale-title-large);
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface);
+  margin: 0;
+}
+
+.card-icon {
+  color: var(--md-sys-color-primary);
+  font-size: 24px;
+}
+
+/* QR Configuration Form */
+.qr-config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Text Field Styling */
+.md-text-field {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.md-text-field label {
+  display: block;
+  font-size: var(--md-sys-typescale-body-medium);
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-bottom: 8px;
+}
+
+.md-text-field input,
+.md-text-field select {
+  width: 100%;
+  padding: 16px 14px;
+  border: 2px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-medium);
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--md-sys-typescale-body-large);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.md-text-field input:focus,
+.md-text-field select:focus {
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 
+    0 0 0 3px rgba(25, 118, 210, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.asset-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2379747E' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+/* Selected Asset Info */
+.selected-asset-info {
+  background-color: var(--md-sys-color-primary-container);
+  border-radius: var(--md-sys-shape-corner-medium);
+  padding: 16px;
+  margin-top: 8px;
+  border-left: 4px solid var(--md-sys-color-primary);
+}
+
+.selected-asset-info h4 {
+  font-size: var(--md-sys-typescale-body-medium);
+  font-weight: 600;
+  color: var(--md-sys-color-on-primary-container);
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.asset-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.asset-detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: var(--md-sys-typescale-body-small);
+  color: var(--md-sys-color-on-primary-container);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.detail-value {
+  font-size: var(--md-sys-typescale-body-small);
+  color: var(--md-sys-color-on-primary-container);
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Generate Button */
+.generate-qr-button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--md-sys-color-primary) 0%, #1565C0 100%);
+  color: var(--md-sys-color-on-primary);
+  border: none;
+  padding: 16px 24px;
+  border-radius: var(--md-sys-shape-corner-large);
+  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--md-sys-typescale-label-large);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--md-sys-elevation-level2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.generate-qr-button:hover:not(:disabled) {
+  box-shadow: var(--md-sys-elevation-level3);
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #1565C0 0%, var(--md-sys-color-primary) 100%);
+}
+
+.generate-qr-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.generate-qr-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.generate-qr-button .material-icons-round {
+  font-size: 20px;
+}
+
+/* Preview Section */
+.qr-preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.qr-preview-card {
+  background-color: var(--md-sys-color-surface);
+  border-radius: var(--md-sys-shape-corner-large);
+  box-shadow: var(--md-sys-elevation-level1);
+  padding: 24px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.qr-preview-card:hover {
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+/* QR Preview Container */
+.qr-preview-container {
+  background-color: var(--md-sys-color-surface-variant);
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: 32px;
+  text-align: center;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Empty State */
+.qr-empty-state {
+  color: var(--md-sys-color-on-surface-variant);
+  text-align: center;
+}
+
+.qr-empty-state .material-icons-round {
+  font-size: 80px;
+  opacity: 0.3;
+  margin-bottom: 16px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.qr-empty-state p {
+  font-size: var(--md-sys-typescale-body-large);
+  margin: 8px 0;
+  font-weight: 500;
+}
+
+.qr-empty-state .text-sm {
+  font-size: var(--md-sys-typescale-body-small);
+  opacity: 0.7;
+}
+
+/* QR Canvas Wrapper */
+.qr-canvas-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background: white;
+  border-radius: var(--md-sys-shape-corner-medium);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.qr-canvas-wrapper canvas,
+.qr-preview-image {
+  display: block;
+  border-radius: var(--md-sys-shape-corner-medium);
+  max-width: 100%;
+  height: auto;
+}
+
+/* QR Preview Placeholder for PDF/SVG */
+.qr-preview-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: var(--md-sys-color-surface-variant);
+  border-radius: var(--md-sys-shape-corner-medium);
+  color: var(--md-sys-color-primary);
+}
+
+.qr-preview-placeholder .material-icons-round {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.qr-preview-placeholder p {
+  font-size: var(--md-sys-typescale-body-large);
+  font-weight: 500;
+  margin: 0;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Format Message */
+.format-message {
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--md-sys-color-primary-container);
+  border-radius: var(--md-sys-shape-corner-medium);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.format-message .material-icons-round {
+  font-size: 24px;
+  color: var(--md-sys-color-primary);
+}
+
+.format-message p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.format-message .text-sm {
+  font-size: var(--md-sys-typescale-body-small);
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* QR Actions */
+.qr-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.qr-actions .md-button {
+  flex: 1;
+  min-width: 200px;
+  background: linear-gradient(135deg, var(--md-sys-color-primary) 0%, #1565C0 100%);
+  color: var(--md-sys-color-on-primary);
+  border: none;
+  padding: 14px 24px;
+  border-radius: var(--md-sys-shape-corner-large);
+  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--md-sys-typescale-label-large);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--md-sys-elevation-level1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qr-actions .md-button:hover {
+  box-shadow: var(--md-sys-elevation-level2);
+  transform: translateY(-2px);
+}
+
+.qr-actions .md-button.secondary {
+  background: linear-gradient(135deg, var(--md-sys-color-secondary) 0%, #00BFA5 100%);
+}
+
+.qr-actions .md-button .material-icons-round {
+  font-size: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .qr-generator-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .qr-actions {
+    flex-direction: column;
+  }
+
+  .qr-actions .md-button {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .qr-generator-container {
+    padding: 0;
+  }
+
+  .page-header {
+    margin-bottom: 24px;
+  }
+
+  .qr-config-card,
+  .qr-preview-card {
+    padding: 16px;
+  }
+
+  .qr-preview-container {
+    padding: 24px 16px;
+    min-height: 300px;
+  }
+
+  .generate-qr-button {
+    padding: 14px 20px;
+  }
+
+  .md-text-field input,
+  .md-text-field select {
+    padding: 14px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 20px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+  }
+
+  .qr-config-card,
+  .qr-preview-card {
+    padding: 12px;
+  }
+
+  .qr-preview-container {
+    padding: 16px 12px;
+    min-height: 250px;
+  }
+
+  .qr-empty-state .material-icons-round {
+    font-size: 60px;
+  }
+
+  .card-header h3 {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users_database version="1.0">
+  <users>
+    <user id="6">
+      <username>dhruv </username>
+      <password>dg2006</password>
+      <name>Dhruv Gohel</name>
+      <email>dhruvgohel460@gmail.com</email>
+      <role>admin</role>
+      <created_date>2025-11-07</created_date>
+      <last_login>2025-11-24T16:16:36.127147</last_login>
+      <active>true</active>
+    </user>
+    <user id="8">
+      <username>jahanvi </username>
+      <password>jp2006</password>
+      <role>engineer</role>
+      <name>Jahanvi Patel</name>
+      <email>jahanvipatel@gmail.com</email>
+      <created_date>2025-11-07</created_date>
+      <last_login>2025-11-07T18:44:58.422786</last_login>
+      <active>true</active>
+    </user>
+    <user id="9">
+      <username>mit</username>
+      <password>mp2006</password>
+      <role>manufacturer</role>
+      <name>Mit Panchal</name>
+      <email>mitpanchal@gmail.com</email>
+      <created_date>2025-11-07</created_date>
+      <last_login />
+      <active>true</active>
+    </user>
+    <user id="10">
+      <username>mariya</username>
+      <password>mf2006</password>
+      <role>worker</role>
+      <name>Mariya fakih</name>
+      <email>mariyafakih@gmail.com</email>
+      <created_date>2025-11-07</created_date>
+      <last_login>2025-11-07T18:30:48.152288</last_login>
+      <active>true</active>
+    </user>
+    <user id="11">
+      <username>helly</username>
+      <password>hp2006</password>
+      <role>worker</role>
+      <name>Helly Prajapati</name>
+      <email>hellyprajapati@gmail.com</email>
+      <created_date>2025-11-07</created_date>
+      <last_login>2025-11-07T18:34:16.741832</last_login>
+      <active>true</active>
+    </user>
+    <user id="12">
+      <username>krishnaraj</username>
+      <password>kd2006</password>
+      <name>Krishnaraj Dodiya</name>
+      <email>krishnarajdodiya@gmail.com</email>
+      <role>admin</role>
+      <created_date>2025-11-07</created_date>
+      <last_login />
+      <active>true</active>
+    </user>
+  </users>
+</users_database>

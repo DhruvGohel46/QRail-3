@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<railway_asset_database version="1.0" created="2025-11-07T13:54:28.587901">
+  <assets>
+    <asset id="1">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-11-07</manufacturing_date>
+      <installation_date />
+      <status>Active</status>
+      <asset_id>TRA2025110710312295</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="2">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-11-07</manufacturing_date>
+      <installation_date />
+      <status>Manufactured</status>
+      <asset_id>SLE2025110710113501</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="3">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-11-06</manufacturing_date>
+      <installation_date />
+      <status>Manufactured</status>
+      <asset_id>TRA2025110710312425</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="4">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-11-07</manufacturing_date>
+      <installation_date />
+      <status>Manufactured</status>
+      <asset_id>TRA2025110710318130</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="5">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-09-01</manufacturing_date>
+      <installation_date />
+      <status>active</status>
+      <asset_id>TRA2025110710316132</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="6">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2020-01-24</manufacturing_date>
+      <installation_date />
+      <status>Retired</status>
+      <asset_id>TRA2025110710312174</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="7">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2019-11-08</manufacturing_date>
+      <installation_date />
+      <status>Retired</status>
+      <asset_id>SLE2025110710111348</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="8">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-08-21</manufacturing_date>
+      <installation_date />
+      <status>active</status>
+      <asset_id>SLE2025110710114734</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="9">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-11-01</manufacturing_date>
+      <installation_date />
+      <status>Installed</status>
+      <asset_id>SLE2025110710116389</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="10">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-10-17</manufacturing_date>
+      <installation_date />
+      <status>active</status>
+      <asset_id>SLE2025110710111035</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="11">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-09-03</manufacturing_date>
+      <installation_date />
+      <status>active</status>
+      <asset_id>SLE2025110710117884</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="12">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-07-10</manufacturing_date>
+      <installation_date />
+      <status>active</status>
+      <asset_id>SLE2025110710112712</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="13">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-06-14</manufacturing_date>
+      <installation_date />
+      <status>active</status>
+      <asset_id>TRA2025110710319091</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="14">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-06-07</manufacturing_date>
+      <installation_date />
+      <status>active</status>
+      <asset_id>TRA2025110710318019</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="15">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-05-22</manufacturing_date>
+      <installation_date />
+      <status>active</status>
+      <asset_id>TRA2025110710312936</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="16">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-05-22</manufacturing_date>
+      <installation_date>2025-06-09</installation_date>
+      <status>active</status>
+      <asset_id>TRA2025110710315151</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="17">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-04-14</manufacturing_date>
+      <installation_date>2025-06-05</installation_date>
+      <status>active</status>
+      <asset_id>SLE2025110710113396</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="18">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-03-12</manufacturing_date>
+      <installation_date>2025-06-05</installation_date>
+      <status>active</status>
+      <asset_id>SLE2025110710110546</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="19">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-05-14</manufacturing_date>
+      <installation_date>2025-06-05</installation_date>
+      <status>Active</status>
+      <asset_id>SLE2025110710112589</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="20">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-05-03</manufacturing_date>
+      <installation_date>2025-06-05</installation_date>
+      <status>Active</status>
+      <asset_id>SLE2025110710113142</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="21">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-04-16</manufacturing_date>
+      <installation_date>2025-08-13</installation_date>
+      <status>Active</status>
+      <asset_id>SLE2025110710113116</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="22">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-03-14</manufacturing_date>
+      <installation_date>2025-08-13</installation_date>
+      <status>Active</status>
+      <asset_id>TRA2025110710313236</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="23">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-03-13</manufacturing_date>
+      <installation_date>2025-08-13</installation_date>
+      <status>Active</status>
+      <asset_id>TRA2025110710311336</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="24">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-03-03</manufacturing_date>
+      <installation_date />
+      <status>Maintenance</status>
+      <asset_id>TRA2025110710311437</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+    <asset id="25">
+      <type>track</type>
+      <manufacturer_id>MFG-1031</manufacturer_id>
+      <manufacturing_date>2025-02-05</manufacturing_date>
+      <installation_date>2025-08-13</installation_date>
+      <status>active</status>
+      <asset_id>TRA2025110710310091</asset_id>
+      <qr_generated>True</qr_generated>
+    </asset>
+    <asset id="26">
+      <type>sleeper</type>
+      <manufacturer_id>MFG-1011</manufacturer_id>
+      <manufacturing_date>2025-02-01</manufacturing_date>
+      <installation_date>2025-08-13</installation_date>
+      <status>Active</status>
+      <asset_id>SLE2025110710114757</asset_id>
+      <qr_generated>false</qr_generated>
+    </asset>
+  </assets>
+  <maintenance_records>
+    <maintenance_record id="1">
+      <asset_id>TRA2025110710312936</asset_id>
+      <maintenance_type>General</maintenance_type>
+      <operator>helly</operator>
+      <description>Systematic through packing executed on Track Section KM 145.8-147.2. Ballast cleaned and redistributed for proper drainage. Track alignment and level corrections completed using conventional methods. Rail joints lubricated and fish bolts tightened. Side drains cleared of vegetation and debris.</description>
+      <date>2025-10-15</date>
+      <status>completed</status>
+    </maintenance_record>
+    <maintenance_record id="2">
+      <asset_id>SLE2025110710110546</asset_id>
+      <maintenance_type>Replacement</maintenance_type>
+      <operator>mariya</operator>
+      <description>Replaced 78 defective wooden sleepers with new pre-stressed concrete sleepers on Track Section KM 123.5-125.0. Removed worn fastening assemblies and installed new elastic rail clips with rubber pads. Ballast opened, sleeper seats prepared, and proper compaction ensured. Track geometry restored after sleeper renewal.</description>
+      <date>2025-10-26</date>
+      <status>completed</status>
+    </maintenance_record>
+    <maintenance_record id="3">
+      <asset_id>SLE2025110710117884</asset_id>
+      <maintenance_type>Inspection</maintenance_type>
+      <operator>mariya</operator>
+      <description>Detailed inspection of concrete sleepers conducted on Track Section BG-89 from KM 45.0-47.5. Checked for cracks, spalling, and corrosion of fastening inserts. Verified sleeper spacing and alignment. Examined ballast penetration and support conditions. 12 sleepers marked for future replacement due to minor cracks.</description>
+      <date>2025-11-07</date>
+      <status>completed</status>
+    </maintenance_record>
+    <maintenance_record id="4">
+      <asset_id>SLE2025110710112712</asset_id>
+      <maintenance_type>Repair</maintenance_type>
+      <operator>mariya</operator>
+      <description>Repair work completed on 34 partially damaged concrete sleepers at Track Section KM 178.4-179.8. Epoxy grouting applied to surface cracks. Loose fastening inserts tightened and secured. Missing rubber pads replaced. Ballast tamped around repaired sleepers for proper support and load distribution.</description>
+      <date>2025-11-07</date>
+      <status>completed</status>
+    </maintenance_record>
+    <maintenance_record id="5">
+      <asset_id>TRA2025110710316132</asset_id>
+      <maintenance_type>Repair</maintenance_type>
+      <operator>helly</operator>
+      <description>Emergency repair work completed on Track Section KM 92.4 due to rail fracture detection. Temporary fishplated joint installed with emergency rail piece. Track speed restriction imposed at 30 kmph. Ballast restabilized around repair location. Continuous monitoring scheduled until permanent rail renewal.</description>
+      <date>2025-11-07</date>
+      <status>completed</status>
+    </maintenance_record>
+    <maintenance_record id="6">
+      <asset_id>TRA2025110710319091</asset_id>
+      <maintenance_type>Replacement</maintenance_type>
+      <operator>helly</operator>
+      <description>Complete track renewal executed on Section BG-156 from KM 201.0-203.5. Removed old 52 kg/m rails and replaced with new 60 kg/m head-hardened rails. Flash-butt welding completed for continuous welded rail. Track lifted to proper formation level. Final geometry measurements recorded - track restored to Class-A standards.</description>
+      <date>2025-11-07</date>
+      <status>completed</status>
+    </maintenance_record>
+    <maintenance_record id="7">
+      <asset_id>SLE2025110710113396</asset_id>
+      <maintenance_type>General</maintenance_type>
+      <operator>mariya</operator>
+      <description>Routine sleeper maintenance performed on Gang Beat 52. Checked tightness of all fastening assemblies on 450 sleepers. Adjusted loose clips and replaced 23 worn elastic rail clips. Cleaned sleeper tops of mud and vegetation. Ensured proper ballast profile around sleeper cribs for adequate drainage.​
+
+</description>
+      <date>2025-11-07</date>
+      <status>completed</status>
+    </maintenance_record>
+    <maintenance_record id="8">
+      <asset_id>TRA2025110710318019</asset_id>
+      <maintenance_type>General</maintenance_type>
+      <operator>helly</operator>
+      <description>Pre-monsoon preparatory maintenance on Track Section KM 67.2-69.8. Catch water drains and side drains cleaned and reshaped. Track shoulder ballast profiled and compacted. Minor slack picking performed throughout the section. Cross levels and gradients checked and corrected where necessary.</description>
+      <date>2025-11-07</date>
+      <status>completed</status>
+    </maintenance_record>
+    <maintenance_record id="9">
+      <asset_id>SLE2025110710114734</asset_id>
+      <maintenance_type>Replacement</maintenance_type>
+      <operator>mariya</operator>
+      <description>Emergency sleeper replacement carried out at Track Section KM 156.2. Replaced 15 broken concrete sleepers damaged due to heavy axle load impact. Used hydraulic jacks for rail lifting. New PSC sleepers positioned with correct spacing and alignment. Complete fastening assembly renewed with new components. Track stabilized and opened for traffic after inspection.​</description>
+      <date>2025-11-07</date>
+      <status>completed</status>
+    </maintenance_record>
+    <maintenance_record id="10">
+      <asset_id>TRA2025110710315151</asset_id>
+      <maintenance_type>Inspection</maintenance_type>
+      <operator>helly</operator>
+      <description>Visual inspection performed on Track Section BG-342 between KM 78.5-80.0. Checked rail profile wear, rail head cracks, and joint conditions. Measured track gauge at regular intervals. Ultrasonic flaw detection conducted on welded joints. Track geometry parameters recorded - all within permissible limits. No immediate corrective action required.</description>
+      <date>2025-11-07</date>
+      <status>completed</status>
+    </maintenance_record>
+  </maintenance_records>
+  <manufacturers />
+</railway_asset_database>

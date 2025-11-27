@@ -1,0 +1,45 @@
+.stat-card {
+  background: var(--md-sys-color-surface);
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: var(--md-shadow-sm);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.stat-card:hover {
+  box-shadow: var(--md-shadow-md);
+  transform: translateY(-4px);
+  border-color: var(--md-sys-color-primary);
+}
+
+.stat-card .material-icons-round {
+  font-size: 36px;
+  color: var(--md-sys-color-primary);
+  background: var(--md-sys-color-primary-container);
+  padding: 12px;
+  border-radius: 12px;
+  align-self: flex-start;
+}
+
+.stat-card .stat-title {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.stat-card .stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface);
+}
+
+.stat-card .stat-description {
+  font-size: 14px;
+  color: var(--md-sys-color-on-surface-variant);
+  line-height: 1.4;
+}

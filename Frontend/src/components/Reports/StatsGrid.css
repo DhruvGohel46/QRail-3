@@ -1,0 +1,119 @@
+/* Stats Section Container */
+.stats-section {
+  max-width: 1400px;
+  margin: 32px auto 48px;
+  padding: 0 24px;
+}
+
+.stats-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--md-sys-color-primary-dark);
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--md-sys-color-primary-container);
+  letter-spacing: 0.5px;
+}
+
+/* Stats Grid Layout */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  padding: 16px;
+}
+
+/* Stats Card Styling */
+.stats-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  border: 1px solid rgba(230, 230, 230, 0.7);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Stats Icon */
+.stats-icon {
+  background: linear-gradient(135deg, var(--md-sys-color-primary) 0%, var(--md-sys-color-primary-dark) 100%);
+  border-radius: 12px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stats-icon .material-icons-round {
+  color: white;
+  font-size: 28px;
+}
+
+/* Stats Info */
+.stats-info {
+  flex-grow: 1;
+}
+
+.stats-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.stats-label {
+  font-size: 14px;
+  color: var(--md-sys-color-on-surface-variant);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 8px;
+  }
+  
+  .stats-card {
+    padding: 20px;
+  }
+  
+  .stats-icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .stats-icon .material-icons-round {
+    font-size: 24px;
+  }
+  
+  .stats-value {
+    font-size: 28px;
+  }
+  
+  .stats-label {
+    font-size: 13px;
+  }
+}

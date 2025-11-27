@@ -1,0 +1,16 @@
+make 3 types of user 
+1) manufacturer
+2)worker 
+3)engineer or admin 
+
+1)manufacturer
+ by scaning Qr, shows details of assets ,and add maintance + add new assets and genrates it's QR 
+2)worker
+by scaning Qr, shows details of assets ,and add maintance
+3)engineer or admin 
+by scaning Qr, shows details of assets + maintain the assets so all list of assets shown to him with its details 
+
+!!! important: engineer or admin delete the assets but manufacturer not
+
+
+use xml database base to store login credentials  

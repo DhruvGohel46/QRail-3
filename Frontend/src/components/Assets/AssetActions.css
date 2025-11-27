@@ -1,0 +1,108 @@
+.asset-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.asset-actions.mobile {
+  justify-content: flex-start;
+}
+
+/* Icon Button Base */
+.md-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  padding: 0;
+  position: relative;
+  outline: none;
+}
+
+.md-icon-button:hover {
+  transform: translateY(-1px);
+}
+
+.md-icon-button:active {
+  transform: translateY(0);
+}
+
+/* Edit Button */
+.md-icon-button.edit {
+  color: var(--md-sys-color-primary);
+  background-color: var(--md-sys-color-primary-container);
+}
+
+.md-icon-button.edit:hover {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+/* Delete Button */
+.md-icon-button.delete {
+  color: var(--md-sys-color-error);
+  background-color: var(--md-sys-color-error-container);
+}
+
+.md-icon-button.delete:hover {
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+}
+
+/* Material Icons in Buttons */
+.md-icon-button .material-icons-round {
+  font-size: 20px;
+}
+
+/* Tooltip on hover */
+.md-icon-button::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
+  box-shadow: var(--md-sys-elevation-1);
+}
+
+.md-icon-button:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Disabled state */
+.md-icon-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .asset-actions {
+    gap: 12px;
+  }
+
+  .md-icon-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .md-icon-button .material-icons-round {
+    font-size: 24px;
+  }
+}

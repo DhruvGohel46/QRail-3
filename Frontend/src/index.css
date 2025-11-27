@@ -1,0 +1,882 @@
+/* Material Design 3 Color Palette - QRail Theme */
+:root {
+  --md-sys-color-primary: #1976D2;
+  --md-sys-color-primary-dark: #1565C0;
+  --md-sys-color-primary-light: #42A5F5;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #E3F2FD;
+  --md-sys-color-on-primary-container: #0D47A1;
+  
+  --md-sys-color-background: #FAFAFA;
+  --md-sys-color-on-background: #1F1F1F;
+  --md-sys-color-surface: #FFFFFF;
+  --md-sys-color-on-surface: #2B2B2B;
+  --md-sys-color-surface-variant: #F5F5F5;
+  
+  --md-sys-color-outline: #B0BEC5;
+  --md-sys-color-outline-variant: #CFD8DC;
+  
+  --md-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --md-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --md-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  line-height: 1.6;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* Add all your existing CSS from style.css here */
+
+
+/* Admin Approvals Styles */
+.admin-approvals {
+  padding: 24px;
+}
+
+.pending-users-table-container {
+  margin-top: 24px;
+}
+
+.pending-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pending-users-table th,
+.pending-users-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.pending-users-table th {
+  background: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.role-badge.manufacturer {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.role-badge.worker {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.role-badge.engineer {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.role-badge.admin {
+  background: #fce4ec;
+  color: #c2185b;
+}
+
+.approval-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.approval-actions .md-button {
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.approval-actions .approve {
+  background: #4caf50;
+  color: white;
+}
+
+.approval-actions .reject {
+  border-color: #f44336;
+  color: #f44336;
+}
+
+.approval-actions .reject:hover {
+  background: #f44336;
+  color: white;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px;
+  color: #666;
+}
+
+.empty-state .material-icons-round {
+  font-size: 64px;
+  color: #4caf50;
+  margin-bottom: 16px;
+}
+
+/* Mobile View */
+.pending-users-mobile {
+  display: none;
+}
+
+.pending-user-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pending-user-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.pending-user-card .card-details p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.approval-actions.mobile {
+  margin-top: 16px;
+}
+
+.approval-actions.mobile .md-button {
+  flex: 1;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .pending-users-table {
+    display: none;
+  }
+  
+  .pending-users-mobile {
+    display: block;
+  }
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--md-sys-color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader-text {
+  color: var(--md-sys-color-on-surface);
+  font-size: 14px;
+}
+
+.loader-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge-small { padding: 2px 8px; font-size: 10px; }
+.badge-medium { padding: 4px 12px; font-size: 12px; }
+.badge-large { padding: 6px 16px; font-size: 14px; }
+
+.badge-default { background: #e0e0e0; color: #333; }
+.badge-success { background: #e8f5e9; color: #388e3c; }
+.badge-warning { background: #fff3e0; color: #f57c00; }
+.badge-error { background: #ffebee; color: #c62828; }
+.badge-info { background: #e3f2fd; color: #1976d2; }
+
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  padding: 8px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background-color: var(--md-sys-color-on-primary);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: flex;
+  }
+}
+
+.notification-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  min-width: 300px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(400px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.notification-success { border-left: 4px solid #4caf50; }
+.notification-error { border-left: 4px solid #f44336; }
+.notification-warning { border-left: 4px solid #ff9800; }
+.notification-info { border-left: 4px solid #2196f3; }
+
+.notification-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+/* Maintenance Tab Styles */
+.maintenance-tab {
+  padding: 24px;
+}
+
+.maintenance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.maintenance-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.maintenance-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.maintenance-table th,
+.maintenance-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.maintenance-table th {
+  background: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+}
+
+.maintenance-mobile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.status-badge.completed {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.status-badge.pending {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.status-badge.in-progress {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.file-upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.desktop-view {
+  display: block;
+}
+
+.mobile-view {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-view {
+    display: none;
+  }
+  
+  .mobile-view {
+    display: block;
+  }
+  
+  .maintenance-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .maintenance-actions {
+    flex-direction: column;
+  }
+  
+  .maintenance-actions button {
+    width: 100%;
+  }
+}
+
+/* Global component styles */
+.md-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.md-button:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.md-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.md-button.outline {
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  border: 2px solid var(--md-sys-color-primary);
+}
+
+.md-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.md-icon-button:hover {
+  background: var(--md-sys-color-primary-container);
+}
+
+.md-icon-button.edit { color: #1976d2; }
+.md-icon-button.delete { color: #c62828; }
+
+.md-text-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.md-text-field label {
+  font-size: 12px;
+  color: #666;
+}
+
+.md-text-field input,
+.md-text-field select,
+.md-text-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.md-text-field input:focus,
+.md-text-field select:focus,
+.md-text-field textarea:focus {
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+}
+
+.field-error,
+.form-error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.show { display: flex; }
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 95%;
+  max-width: 640px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+}
+
+.modal-header, .modal-footer, .modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-footer, .modal-actions { border-top: 1px solid #eee; border-bottom: none; }
+
+.modal-body { padding: 20px; }
+
+.close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Tables */
+.asset-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--md-shadow-sm);
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.asset-table th, .asset-table td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.asset-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.asset-table tbody tr:hover {
+  background: var(--md-sys-color-primary-container);
+}
+
+.asset-table th {
+  background: linear-gradient(135deg, var(--md-sys-color-primary-container) 0%, #E1F5FE 100%);
+  font-weight: 600;
+  color: var(--md-sys-color-primary-dark);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* Search */
+.asset-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.asset-search .search-icon {
+  position: absolute;
+  left: 12px;
+  color: #888;
+}
+
+.asset-search input {
+  padding-left: 40px;
+}
+
+/* Reports */
+.reports-tab {
+  padding: 24px;
+}
+
+.loading-message { color: #666; }
+
+/* ==============================
+   Assets Module
+   ============================== */
+.asset-list {
+  padding: 32px;
+  background: transparent;
+}
+
+.asset-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--md-sys-color-primary-container);
+}
+
+.asset-list-header h2 {
+  margin: 0;
+  color: var(--md-sys-color-primary-dark);
+  font-size: 28px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.asset-list-header h2::before {
+  content: '';
+  width: 4px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--md-sys-color-primary) 0%, var(--md-sys-color-primary-light) 100%);
+  border-radius: 2px;
+}
+
+.asset-list-content {
+  margin-top: 16px;
+}
+
+.asset-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.asset-mobile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.asset-mobile-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.asset-mobile-card .card-details p { margin: 6px 0; font-size: 14px; }
+
+.asset-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.asset-search input { flex: 1; }
+
+/* AddAsset Modal specific tweaks */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+/* ==============================
+   Maintenance Module
+   ============================== */
+.loading-message { 
+  color: #666; 
+  text-align: center;
+  padding: 40px;
+}
+
+.maintenance-tab { 
+  padding: 32px;
+  background: transparent;
+}
+
+.maintenance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.maintenance-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.maintenance-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+.maintenance-table th, .maintenance-table td { padding: 16px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+.maintenance-table th { background: #f5f5f5; font-weight: 600; color: #333; }
+
+.maintenance-mobile-card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+
+.status-badge { border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 600; }
+.status-badge.completed { background: #e8f5e9; color: #388e3c; }
+.status-badge.pending { background: #fff3e0; color: #f57c00; }
+.status-badge.in-progress { background: #e3f2fd; color: #1976d2; }
+
+@media (max-width: 768px) {
+  .maintenance-header { flex-direction: column; align-items: stretch; }
+  .maintenance-actions { flex-direction: column; }
+  .maintenance-actions button { width: 100%; }
+}
+
+/* ==============================
+   Reports Module
+   ============================== */
+.reports-tab { 
+  padding: 32px;
+  background: transparent;
+}
+
+.reports-tab h2 {
+  color: var(--md-sys-color-primary-dark);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--md-sys-color-primary-container);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reports-tab h2::before {
+  content: '';
+  width: 4px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--md-sys-color-primary) 0%, var(--md-sys-color-primary-light) 100%);
+  border-radius: 2px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 16px 0 24px;
+}
+
+@media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .stats-grid { grid-template-columns: 1fr; } }
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--md-shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  box-shadow: var(--md-shadow-md);
+  transform: translateY(-2px);
+  border-color: var(--md-sys-color-primary);
+}
+
+.stat-card .material-icons-round { 
+  color: var(--md-sys-color-primary);
+  font-size: 32px;
+  background: var(--md-sys-color-primary-container);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.export-options { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ==============================
+   Admin Approvals Module
+   ============================== */
+.admin-approvals { 
+  padding: 32px;
+  background: transparent;
+}
+
+.admin-approvals h2 {
+  color: var(--md-sys-color-primary-dark);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--md-sys-color-primary-container);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-approvals h2::before {
+  content: '';
+  width: 4px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--md-sys-color-primary) 0%, var(--md-sys-color-primary-light) 100%);
+  border-radius: 2px;
+}
+
+.pending-users-table-container { margin-top: 24px; }
+
+.pending-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pending-users-table th, .pending-users-table td { padding: 16px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+.pending-users-table th { background: #f5f5f5; font-weight: 600; color: #333; }
+
+.role-badge { display: inline-block; padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+.role-badge.manufacturer { background: #e3f2fd; color: #1976d2; }
+.role-badge.worker { background: #fff3e0; color: #f57c00; }
+.role-badge.engineer { background: #e8f5e9; color: #388e3c; }
+.role-badge.admin { background: #fce4ec; color: #c2185b; }
+
+.approval-actions { display: flex; gap: 8px; }
+.approval-actions .md-button { padding: 8px 16px; display: flex; align-items: center; gap: 4px; }
+.approval-actions .approve { background: #4caf50; color: white; }
+.approval-actions .reject { border-color: #f44336; color: #f44336; }
+.approval-actions .reject:hover { background: #f44336; color: white; }
+
+/* Mobile list */
+.pending-users-mobile { display: none; }
+
+.pending-user-card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+.pending-user-card .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.pending-user-card .card-details p { margin: 8px 0; font-size: 14px; }
+
+.approval-actions.mobile { margin-top: 16px; }
+.approval-actions.mobile .md-button { flex: 1; justify-content: center; }
+
+@media (max-width: 768px) {
+  .pending-users-table { display: none; }
+  .pending-users-mobile { display: block; }
+}
