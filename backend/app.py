@@ -9,6 +9,7 @@ import random
 import secrets
 import logging
 import base64
+import ollama
 from email_sender import send_email_smtp
 
 # Configure logging
@@ -897,77 +898,115 @@ def scan_qr_frame():
         return jsonify(success=False, error=str(e)), 500
 
 # -----------------------------------------------------------------------------
-# QR Generation
+# AI Enhancement
 # -----------------------------------------------------------------------------
-@app.route("/api/generate-qr", methods=["POST"])
-@require_permission("can_generate_qr")
-def generate_qr():
+
+@app.route("/api/ai/enhance-description", methods=["POST"])
+@require_auth
+def enhance_description():
     """
-    Generate QR code for an asset using the RailwayQRGenerator
+    Enhance maintenance description using local Llama 3.2 model via Ollama
     """
     try:
-        if not QR_GEN_AVAILABLE or not qr_generator:
-            return jsonify(success=False, error="QR Generator not available"), 500
-
         data = request.get_json(force=True)
-        asset_id = data.get("asset_id")
-
-        if not asset_id:
-            return jsonify(success=False, error="Asset ID is required"), 400
-
-        # Get the asset details
-        asset_el = db.find_asset(asset_id)
-        if not asset_el:
-            return jsonify(success=False, error="Asset not found"), 404
-
-        # Get full asset data
-        asset = db.get_asset_dict(asset_el)
+        description = data.get("description", "").strip()
         
-        # Let the QR generator module handle all QR generation logic
-        result = qr_generator.generate_qr_code(
-            asset_data=asset,
-            error_correction= "H",
-            output_format=data.get("format", "PNG").upper()  # Convert format to uppercase
-        )
+        if not description:
+            return jsonify(success=False, error="Description is required"), 400
+        
+        # System prompt for professional maintenance description enhancement
+        system_prompt = """You are a professional railway maintenance technician and technical writer.
 
-        if not result.get("success"):
+Your task is to rewrite the following maintenance note into a concise, technical, and actionable description for the maintenance log. Write so that a future maintenance worker can clearly understand the fault, the work already done, and the current status without any extra or imagined details.
+
+Strict rules:
+- Preserve all facts, component names, asset IDs, coach numbers, locations, dates, and measurements exactly as written. Do not add new information, causes, or actions that are not explicitly mentioned.
+- Focus only on: 1) issue/fault or condition observed, 2) action taken or work performed, 3) outcome/current status.
+- Remove casual language, opinions, apologies, and guesses. Use clear, direct, technical language in active voice and short sentences.
+- If the note includes no work done, only describe the reported issue and known status. Do not invent repairs or conclusions.
+- If something is unclear in the original text, keep it minimal and use neutral wording such as "reported issue" or "symptoms not confirmed".
+- Keep the final text under 150 words in a single short paragraph.
+- Output must be plain text only (no bullets, no markdown).
+- Wrap the final rewritten text inside <description></description> tags and do not add any other text.
+
+Now rewrite this maintenance description following the rules above:
+
+{description}
+
+Input Text:
+"""
+
+        user_prompt = f"Rewrite this maintenance description professionally and wrap it in <description></description> tags:\n\n{description}"
+        
+        # Call local Ollama instance (default port 11434)
+        logger.info("Calling Ollama Llama 3.2 model for description enhancement")
+        
+        try:
+            response = ollama.chat(
+                model='llama3.2:3b',
+                messages=[
+                    {'role': 'system', 'content': system_prompt},
+                    {'role': 'user', 'content': user_prompt}
+                ],
+                options={
+                    'temperature': 0.3,  # Lower temperature for more focused output
+                    'num_predict': 250,  # Limit response length
+                }
+            )
+            
+            raw_response = response['message']['content'].strip()
+            logger.info(f"Raw Llama response: {raw_response}")
+            
+            # Extract text between <description></description> tags
+            import re
+            match = re.search(r'<description>(.*?)</description>', raw_response, re.DOTALL | re.IGNORECASE)
+            
+            if match:
+                enhanced_description = match.group(1).strip()
+            else:
+                # Fallback: if tags not found, try to clean the response
+                # Remove markdown headers, bullets, and extra formatting
+                enhanced_description = raw_response
+                enhanced_description = re.sub(r'\*\*.*?\*\*', '', enhanced_description)  # Remove bold
+                enhanced_description = re.sub(r'^#+\s+.*$', '', enhanced_description, flags=re.MULTILINE)  # Remove headers
+                enhanced_description = re.sub(r'^\*\s+', '', enhanced_description, flags=re.MULTILINE)  # Remove bullets
+                enhanced_description = re.sub(r'\n{3,}', '\n\n', enhanced_description)  # Remove excessive newlines
+                enhanced_description = enhanced_description.strip()
+                
+                logger.warning("Description tags not found, used fallback cleaning")
+            
+            # Final cleanup
+            enhanced_description = ' '.join(enhanced_description.split())  # Normalize whitespace
+            
             return jsonify(
-                success=False,
-                error=result.get("error", "QR generation failed")
-            ), 500
-
-        # Update asset status if QR generated successfully
-        db.update_asset(asset_id, {
-            "qr_generated": True,
-            "status": "active"
-        })
-
-        # Read the file and convert to base64 data URL
-        filepath = result["filepath"]
-        if not os.path.exists(filepath):
-            return jsonify(success=False, error="Generated file not found"), 500
-
-        # Read the file and encode as base64
-        with open(filepath, 'rb') as f:
-            image_data = f.read()
-            image_b64 = base64.b64encode(image_data).decode()
-
-        # Create data URL based on file type
-        mimetype = ("image/png" if result["filename"].lower().endswith(".png") 
-                   else "application/octet-stream")
-        data_url = f"data:{mimetype};base64,{image_b64}"
-
-        # Return both data URL and file info
-        return jsonify(
-            success=True,
-            qr_url=data_url,
-            filename=result["filename"],
-            mimetype=mimetype
-        )
-
+                success=True,
+                enhanced_description=enhanced_description,
+                original_description=description
+            )
+            
+        except Exception as ollama_error:
+            error_msg = str(ollama_error)
+            logger.error(f"Ollama error: {error_msg}")
+            
+            # Check if it's a connection error
+            if "connection" in error_msg.lower() or "refused" in error_msg.lower():
+                return jsonify(
+                    success=False,
+                    error="Local AI model is offline. Please ensure Ollama is running.",
+                    error_type="OLLAMA_OFFLINE"
+                ), 503
+            else:
+                return jsonify(
+                    success=False,
+                    error=f"AI enhancement failed: {error_msg}",
+                    error_type="OLLAMA_ERROR"
+                ), 500
+                
     except Exception as e:
-        logger.error(f"QR generation error: {e}")
+        logger.error(f"Error in enhance_description: {e}")
+        traceback.print_exc()
         return jsonify(success=False, error=str(e)), 500
+
 
 # -----------------------------------------------------------------------------
 # Reports

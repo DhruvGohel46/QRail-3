@@ -454,3 +454,142 @@
     padding: 10px;
   }
 }
+
+/* NEW: AI Enhancement Styles - Add to existing MaintenanceTab.css */
+
+.description-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ai-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.mic-button,
+.enhance-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mic-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.mic-button:hover {
+  background-color: #e0e0e0;
+}
+
+.mic-button.listening {
+  background-color: #ff4444;
+  color: white;
+  animation: pulse-button 1.5s infinite;
+}
+
+.enhance-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.enhance-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.enhance-button:disabled,
+.mic-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mic-icon,
+.ai-icon {
+  font-size: 14px;
+}
+
+textarea.listening-active {
+  border-color: #ff4444;
+  background-color: #fff5f5;
+}
+
+textarea:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.listening-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #fff5f5;
+  border-left: 4px solid #ff4444;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #ff4444;
+  font-weight: 500;
+}
+
+.pulse {
+  width: 10px;
+  height: 10px;
+  background-color: #ff4444;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes pulse-button {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.ai-error-message,
+.ai-success-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.ai-error-message {
+  background-color: #fff5f5;
+  color: #d32f2f;
+  border-left: 4px solid #d32f2f;
+}
+
+.ai-success-message {
+  background-color: #f0f9ff;
+  color: #0288d1;
+  border-left: 4px solid #0288d1;
+}

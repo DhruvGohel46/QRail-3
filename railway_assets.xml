@@ -24,9 +24,9 @@
       <manufacturer_id>MFG-1031</manufacturer_id>
       <manufacturing_date>2025-11-06</manufacturing_date>
       <installation_date />
-      <status>Manufactured</status>
+      <status>active</status>
       <asset_id>TRA2025110710312425</asset_id>
-      <qr_generated>false</qr_generated>
+      <qr_generated>True</qr_generated>
     </asset>
     <asset id="4">
       <type>track</type>

@@ -298,6 +298,19 @@ export const api = {
       return handleResponse(response);
     },
   },
+    /**
+   * AI Enhancement APIs
+   */
+  ai: {
+    enhanceDescription: async (description) => {
+      const response = await fetch(`${API_BASE_URL}/api/ai/enhance-description`, {
+        ...defaultOptions,
+        method: 'POST',
+        body: JSON.stringify({ description }),
+      });
+      return handleResponse(response);
+    },
+  },
 
 };
 

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import QRScanner from './QRScanner';
+import MaintenanceInput from './MaintenanceInput';
 import api from '../../services/api';
 import './MaintenanceTab.css';
 
 const MaintenanceTab = ({ user }) => {
-  const [view, setView] = useState('scanner'); // 'scanner' or 'form'
+  const [view, setView] = useState('scanner');
   const [scannedAsset, setScannedAsset] = useState(null);
   const [showScanner, setShowScanner] = useState(false);
   const [maintenanceRecords, setMaintenanceRecords] = useState([]);
@@ -40,10 +41,8 @@ const MaintenanceTab = ({ user }) => {
     try {
       console.log('Scan complete with asset ID:', assetId);
       
-      // Close the scanner immediately
       setShowScanner(false);
       
-      // Get asset details
       const response = await api.assets.getAll();
       const asset = response.assets.find(a => a.asset_id === assetId || a.assetId === assetId);
       
@@ -51,7 +50,6 @@ const MaintenanceTab = ({ user }) => {
         throw new Error('Asset not found');
       }
       
-      // Set the form data first
       setFormData(prev => ({
         ...prev,
         asset_id: asset.asset_id || asset.assetId,
@@ -62,10 +60,7 @@ const MaintenanceTab = ({ user }) => {
         operator: user?.username || ''
       }));
       
-      // Store the asset data
       setScannedAsset(asset);
-      
-      // Finally switch to form view
       setView('form');
       
       console.log('Successfully loaded asset and switched to form view');
@@ -73,7 +68,6 @@ const MaintenanceTab = ({ user }) => {
     } catch (error) {
       console.error('Error handling QR scan:', error);
       alert('Error: Unable to find asset details. Please try scanning again.');
-      // Reset and go back to scanner
       setScannedAsset(null);
       setFormData(prev => ({
         ...prev,
@@ -84,11 +78,17 @@ const MaintenanceTab = ({ user }) => {
     }
   };
 
-
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // NEW: Handler for MaintenanceInput component
+  const handleDescriptionUpdate = (newDescription) => {
+    setFormData(prev => ({
+      ...prev,
+      description: newDescription
+    }));
   };
 
   const handleSubmitMaintenance = async (e) => {
@@ -114,7 +114,6 @@ const MaintenanceTab = ({ user }) => {
       if (result.success) {
         alert('Maintenance record saved successfully!');
         
-        // Reset and go back to scanner
         setFormData({
           asset_id: '',
           maintenanceType: 'General',
@@ -154,8 +153,6 @@ const MaintenanceTab = ({ user }) => {
         <h2 className="page-title">Maintenance Records</h2>
         <p className="page-subtitle">Track and manage asset maintenance history</p>
       </div>
-
-      {/* Removed scanner card as it's now a quick action button */}
 
       {/* QR Scanner Modal */}
       <QRScanner 
@@ -223,16 +220,11 @@ const MaintenanceTab = ({ user }) => {
                 />
               </div>
 
-              
+              {/* NEW: MaintenanceInput Component Integration */}
               <div className="md-text-field" style={{ gridColumn: '1 / -1' }}>
-                <label>Description</label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  placeholder="Enter maintenance details..."
-                  rows="4"
-                  required
+                <MaintenanceInput 
+                  onSubmit={handleDescriptionUpdate}
+                  initialValue={formData.description}
                 />
               </div>
             </div>
