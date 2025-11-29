@@ -319,6 +319,14 @@
       <date>2025-11-07</date>
       <status>completed</status>
     </maintenance_record>
+    <maintenance_record id="11">
+      <asset_id>TRA2025110710316132</asset_id>
+      <maintenance_type>General</maintenance_type>
+      <operator>dhruv</operator>
+      <description>All systems are functioning within normal parameters. No reported issues or anomalies have been detected.</description>
+      <date>2025-11-29</date>
+      <status>completed</status>
+    </maintenance_record>
   </maintenance_records>
   <manufacturers />
 </railway_asset_database>
