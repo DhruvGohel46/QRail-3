@@ -1,13 +1,13 @@
 # QRail-3: Railway Asset Management & Maintenance System
 
-![QRail Logo](https://img.shields.io/badge/SIH2025-Railway--Assets-blue)
+![QRail Logo](https://img.shields.io/badge/comprehensive railway asset management and maintenance system)
 ![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue)
 ![React](https://img.shields.io/badge/React-Latest-61dafb)
 
 ## 📋 Overview
 
-**QRail-3** is a Smart India Hackathon (SIH) 2025 project designed to revolutionize railway asset management and maintenance tracking through QR code integration. The system provides a comprehensive digital solution for Indian Railways to efficiently track, manage, and maintain critical railway assets with minimal manual intervention.
+**QRail-3** is a comprehensive railway asset management and maintenance system project designed to revolutionize railway asset management and maintenance tracking through QR code integration. The system provides a comprehensive digital solution for Indian Railways to efficiently track, manage, and maintain critical railway assets with minimal manual intervention.
 
 ### Problem Statement
 Indian Railways operates over 5 lakh railway assets across the country. Current maintenance and asset tracking relies heavily on manual processes, leading to:
@@ -354,9 +354,9 @@ We welcome contributions! Here's how to help:
 
 ---
 
-## 🎓 SIH 2025 Context
+comprehensive railway asset management and maintenance system
 
-This project is submitted for **Smart India Hackathon (SIH) 2025** under the railway asset management and maintenance category. The solution addresses the challenge of modernizing railway operations through digital transformation.
+This project is submitted for **comprehensive railway asset management and maintenance system** under the railway asset management and maintenance category. The solution addresses the challenge of modernizing railway operations through digital transformation.
 
 **Problem Statement**: Digital transformation of railway asset management and preventive maintenance scheduling  
 **Organization**: Indian Railways / Ministry of Railways  
@@ -470,7 +470,7 @@ For questions, suggestions, or issues:
   
   ---
   
-  **Made with ❤️ by Dhruv Gohel for Smart India Hackathon 2025**
+  **Made with ❤️ by Dhruv Gohel for Railway Asset Management**
   
   *"Modernizing Indian Railways through Digital Innovation"*
   
