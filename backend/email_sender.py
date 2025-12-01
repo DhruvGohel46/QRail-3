@@ -15,7 +15,7 @@ import logging
 import ssl
 import smtplib
 from email.message import EmailMessage
-
+import os 
 logger = logging.getLogger(__name__)
 
 
@@ -24,11 +24,12 @@ def send_email_smtp(to_email: str, subject: str, body: str) -> bool:
 
     Returns True on success, False otherwise.
     """
+    Qrail_Gmail = os.getenv("QRail Gmail")
     # Default to Gmail SMTP host; user must still provide SMTP_PASS for authentication.
     smtp_host = "smtp.gmail.com"
     smtp_port =  "587"
     smtp_user =  "qrailmanagement@gmail.com"
-    smtp_pass = "wzwj voeu pqjf mkie"
+    smtp_pass = Qrail_Gmail
     # Use provided FROM address or fall back to the requested sending address
     smtp_from = "qrailmanagement@gmail.com"
 
