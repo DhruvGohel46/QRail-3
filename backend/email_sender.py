@@ -27,10 +27,10 @@ def send_email_smtp(to_email: str, subject: str, body: str) -> bool:
     # Default to Gmail SMTP host; user must still provide SMTP_PASS for authentication.
     smtp_host = "smtp.gmail.com"
     smtp_port =  "587"
-    smtp_user =  "goheldhruv460@gmail.com"
-    smtp_pass = "wjnl ypns utgj iayx"
+    smtp_user =  "qrailmanagement@gmail.com"
+    smtp_pass = "wzwj voeu pqjf mkie"
     # Use provided FROM address or fall back to the requested sending address
-    smtp_from = "goheldhruv460@gmail.com"
+    smtp_from = "qrailmanagement@gmail.com"
 
     if not smtp_host or not smtp_user or not smtp_pass:
         logger.warning("SMTP not fully configured. Set SMTP_HOST/SMTP_USER/SMTP_PASS env vars to enable sending.")
