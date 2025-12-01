@@ -60,9 +60,7 @@ const Login = ({ onLoginSuccess, onOpenRegistration }) => {
 
       <div className="login-form-card">
         <div className="login-header">
-          <div className="app-icon">
-            <span className="material-icons-round">train</span>
-          </div>
+          <img src={logo} alt="QRail Logo" className="app-icon" />
           <h2>QRail</h2>
           <p style={{ fontWeight: 900, color: 'black' }}>Indian Railways</p>
           <p>Smart QR-based tracking system for railway infrastructure</p>

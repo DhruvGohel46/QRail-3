@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css';
+import logo from './logo.png';
 
 const Header = ({ user, onLogout, mobileMenuOpen, toggleMobileMenu, activeTab, onTabChange, allowedTabs = [] }) => {
   const navItems = [
@@ -14,9 +15,7 @@ const Header = ({ user, onLogout, mobileMenuOpen, toggleMobileMenu, activeTab, o
       <div className="header-content">
         {/* Logo/Brand Section */}
         <div className="header-brand">
-          <div className="app-icon">
-            <span className="material-icons-round">train</span>
-          </div>
+          <img src={logo} alt="QRail Logo" className="app-icon" />
           <div className="header-text">
             <h1>QRail</h1>
             <p>Smart Asset Management Platform</p>

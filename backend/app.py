@@ -898,14 +898,110 @@ def scan_qr_frame():
         return jsonify(success=False, error=str(e)), 500
 
 # -----------------------------------------------------------------------------
-# AI Enhancement
+# AI Enhancement & Speech Processing
 # -----------------------------------------------------------------------------
+
+# Import speech processor
+from speech_processor import SpeechProcessor, get_supported_languages
+
+# Initialize speech processor
+speech_processor = SpeechProcessor()
+if speech_processor.is_available():
+    logger.info("✓ Speech recognition initialized")
+else:
+    logger.warning("⚠ Speech recognition not available. Install Vosk model.")
+
+
+@app.route("/api/speech/languages", methods=["GET"])
+def get_speech_languages():
+    """Get list of supported speech recognition languages"""
+    try:
+        languages = get_supported_languages()
+        return jsonify(success=True, languages=languages)
+    except Exception as e:
+        logger.error(f"Error fetching languages: {e}")
+        return jsonify(success=False, error=str(e)), 500
+
+
+@app.route("/api/speech/process-audio", methods=["POST"])
+@require_auth
+def process_audio():
+    """
+    Process audio using Vosk - returns ONLY recognized text (no AI enhancement)
+    User can then choose to enhance with AI separately
+    
+    Expects: { "audio": "base64_data", "language": "en" }
+    Returns: { "success": true, "recognized_text": "..." }
+    """
+    try:
+        # Check if speech processor is available
+        if not speech_processor.is_available():
+            return jsonify(
+                success=False,
+                error="Speech recognition not available. Please download and configure Vosk model.",
+                error_type="MODEL_NOT_LOADED"
+            ), 500
+        
+        # Get request data
+        data = request.get_json(force=True)
+        audio_base64 = data.get("audio", "")
+        language = data.get("language", "en")
+        
+        if not audio_base64:
+            return jsonify(
+                success=False,
+                error="No audio data provided"
+            ), 400
+        
+        # Process speech recognition ONLY (no AI enhancement)
+        logger.info(f"Processing speech audio (language: {language})")
+        
+        try:
+            recognized_text = speech_processor.process_audio_base64(audio_base64)
+        except ValueError as ve:
+            logger.warning(f"Audio processing error: {ve}")
+            return jsonify(
+                success=False,
+                error=str(ve),
+                error_type="EMPTY_AUDIO"
+            ), 400
+        except Exception as recog_error:
+            logger.error(f"Speech recognition failed: {recog_error}")
+            return jsonify(
+                success=False,
+                error=f"Speech recognition failed: {str(recog_error)}",
+                error_type="RECOGNITION_ERROR"
+            ), 500
+        
+        logger.info(f"✓ Speech recognized: {recognized_text[:100]}...")
+        
+        # Return ONLY the recognized text (user will decide to enhance or not)
+        return jsonify(
+            success=True,
+            recognized_text=recognized_text,
+            language=language
+        )
+        
+    except Exception as e:
+        logger.error(f"Speech processing error: {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify(
+            success=False,
+            error=str(e),
+            error_type="PROCESSING_ERROR"
+        ), 500
+
 
 @app.route("/api/ai/enhance-description", methods=["POST"])
 @require_auth
 def enhance_description():
     """
     Enhance maintenance description using local Llama 3.2 model via Ollama
+    This is called SEPARATELY when user clicks "Enhance with AI" button
+    
+    Expects: { "description": "text to enhance" }
+    Returns: { "success": true, "enhanced_description": "..." }
     """
     try:
         data = request.get_json(force=True)
@@ -916,7 +1012,6 @@ def enhance_description():
         
         # System prompt for professional maintenance description enhancement
         system_prompt = """You are a professional railway maintenance technician and technical writer.
-
 Your task is to rewrite the following maintenance note into a concise, technical, and actionable description for the maintenance log. Write so that a future maintenance worker can clearly understand the fault, the work already done, and the current status without any extra or imagined details.
 
 Strict rules:
@@ -930,18 +1025,16 @@ Strict rules:
 - Wrap the final rewritten text inside <description></description> tags and do not add any other text.
 
 Now rewrite this maintenance description following the rules above:
-
 {description}
 
-Input Text:
-"""
-
+Input Text:"""
+        
         user_prompt = f"Rewrite this maintenance description professionally and wrap it in <description></description> tags:\n\n{description}"
         
-        # Call local Ollama instance (default port 11434)
         logger.info("Calling Ollama Llama 3.2 model for description enhancement")
         
         try:
+            # Call local Ollama instance (default port 11434)
             response = ollama.chat(
                 model='llama3.2:3b',
                 messages=[
@@ -959,21 +1052,21 @@ Input Text:
             
             # Extract text between <description></description> tags
             import re
-            match = re.search(r'<description>(.*?)</description>', raw_response, re.DOTALL | re.IGNORECASE)
+            match = re.search(r'<description>(.+?)</description>', raw_response, re.DOTALL | re.IGNORECASE)
             
             if match:
                 enhanced_description = match.group(1).strip()
             else:
-                # Fallback: if tags not found, try to clean the response
-                # Remove markdown headers, bullets, and extra formatting
-                enhanced_description = raw_response
-                enhanced_description = re.sub(r'\*\*.*?\*\*', '', enhanced_description)  # Remove bold
-                enhanced_description = re.sub(r'^#+\s+.*$', '', enhanced_description, flags=re.MULTILINE)  # Remove headers
-                enhanced_description = re.sub(r'^\*\s+', '', enhanced_description, flags=re.MULTILINE)  # Remove bullets
-                enhanced_description = re.sub(r'\n{3,}', '\n\n', enhanced_description)  # Remove excessive newlines
-                enhanced_description = enhanced_description.strip()
-                
+                # Fallback: use entire response and clean it
                 logger.warning("Description tags not found, used fallback cleaning")
+                enhanced_description = raw_response
+                
+                # Remove markdown headers, bullets, and extra formatting
+                enhanced_description = re.sub(r'\*\*(.+?)\*\*', r'\1', enhanced_description)  # Remove bold
+                enhanced_description = re.sub(r'^#+\s+.*$', '', enhanced_description, flags=re.MULTILINE)  # Remove headers
+                enhanced_description = re.sub(r'^\s*[-•]\s*', '', enhanced_description, flags=re.MULTILINE)  # Remove bullets
+                enhanced_description = re.sub(r'\n{3,}', '\n\n', enhanced_description, flags=re.MULTILINE)  # Remove excessive newlines
+                enhanced_description = enhanced_description.strip()
             
             # Final cleanup
             enhanced_description = ' '.join(enhanced_description.split())  # Normalize whitespace
@@ -1004,9 +1097,9 @@ Input Text:
                 
     except Exception as e:
         logger.error(f"Error in enhance_description: {e}")
+        import traceback
         traceback.print_exc()
         return jsonify(success=False, error=str(e)), 500
-
 
 # -----------------------------------------------------------------------------
 # Reports

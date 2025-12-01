@@ -11,7 +11,7 @@ const MaintenanceInput = ({ onSubmit, initialValue = '' }) => {
   const [supportedLanguages, setSupportedLanguages] = useState([]);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  
+
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
 
@@ -25,7 +25,7 @@ const MaintenanceInput = ({ onSubmit, initialValue = '' }) => {
     if (onSubmit) {
       onSubmit(description);
     }
-  }, [description]);
+  }, [description, onSubmit]);
 
   // Load supported languages on mount
   useEffect(() => {
@@ -49,13 +49,6 @@ const MaintenanceInput = ({ onSubmit, initialValue = '' }) => {
         { code: 'en', name: 'English', native: 'English' },
         { code: 'hi', name: 'Hindi', native: 'हिन्दी' },
         { code: 'gu', name: 'Gujarati', native: 'ગુજરાતી' },
-        { code: 'ta', name: 'Tamil', native: 'தமிழ்' },
-        { code: 'te', name: 'Telugu', native: 'తెలుగు' },
-        { code: 'bn', name: 'Bengali', native: 'বাংলা' },
-        { code: 'mr', name: 'Marathi', native: 'मराठी' },
-        { code: 'kn', name: 'Kannada', native: 'ಕನ್ನಡ' },
-        { code: 'ml', name: 'Malayalam', native: 'മലയാളം' },
-        { code: 'pa', name: 'Punjabi', native: 'ਪੰਜਾਬੀ' }
       ]);
     }
   };
@@ -75,17 +68,18 @@ const MaintenanceInput = ({ onSubmit, initialValue = '' }) => {
     }
 
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ 
+      const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
           echoCancellation: true,
           noiseSuppression: true,
           sampleRate: 16000
-        } 
+        }
       });
-      
+
       mediaRecorderRef.current = new MediaRecorder(stream, {
         mimeType: 'audio/webm'
       });
+
       audioChunksRef.current = [];
 
       mediaRecorderRef.current.ondataavailable = (event) => {
@@ -97,7 +91,7 @@ const MaintenanceInput = ({ onSubmit, initialValue = '' }) => {
       mediaRecorderRef.current.onstop = async () => {
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
         await processAudioBlob(audioBlob);
-        
+
         // Stop all tracks
         stream.getTracks().forEach(track => track.stop());
       };
@@ -105,8 +99,7 @@ const MaintenanceInput = ({ onSubmit, initialValue = '' }) => {
       mediaRecorderRef.current.start();
       setIsListening(true);
       setError('');
-      console.log('Recording started');
-      
+      console.log('🎤 Recording started');
     } catch (err) {
       console.error('Recording error:', err);
       setError('Failed to access microphone. Please grant permission and try again.');
@@ -117,24 +110,23 @@ const MaintenanceInput = ({ onSubmit, initialValue = '' }) => {
     if (mediaRecorderRef.current && isListening) {
       mediaRecorderRef.current.stop();
       setIsListening(false);
-      console.log('Recording stopped');
+      console.log('⏹️ Recording stopped');
     }
   };
 
   const processAudioBlob = async (audioBlob) => {
     setIsProcessingSpeech(true);
     setError('');
-    
+
     try {
       // Convert to base64
       const reader = new FileReader();
       reader.readAsDataURL(audioBlob);
-      
       reader.onloadend = async () => {
         const base64Audio = reader.result;
-        
-        console.log('Sending audio to speech pipeline...');
-        
+
+        console.log('📤 Sending audio to speech recognition...');
+
         const response = await fetch('/api/speech/process-audio', {
           method: 'POST',
           headers: {
@@ -150,43 +142,36 @@ const MaintenanceInput = ({ onSubmit, initialValue = '' }) => {
         const data = await response.json();
 
         if (data.success) {
-          // Append to existing description (don't replace)
-          const newDescription = data.model_response || data.translated_text || data.original_text;
-          
+          // JUST show the recognized text - NO AI enhancement yet
+          const recognizedText = data.recognized_text;
+
+          // Append to existing description
           if (description.trim()) {
-            // Add space if there's existing content
-            setDescription(prev => prev.trim() + ' ' + newDescription);
+            setDescription(prev => prev.trim() + ' ' + recognizedText);
           } else {
-            setDescription(newDescription);
+            setDescription(recognizedText);
           }
-          
+
           const langName = supportedLanguages.find(l => l.code === selectedLanguage)?.name || 'selected language';
-          setSuccess(`✓ Voice input processed (${langName})`);
-          setTimeout(() => setSuccess(''), 3000);
-          
-          console.log('Speech processed successfully:', {
-            original: data.original_text,
-            translated: data.translated_text,
-            enhanced: data.model_response
-          });
+          setSuccess(`✓ Voice input recognized (${langName}). You can now edit or enhance with AI.`);
+          setTimeout(() => setSuccess(''), 4000);
+
+          console.log('✅ Speech recognized:', recognizedText);
         } else {
-          if (data.error_type === 'LLAMA_OFFLINE') {
-            setError('AI model is offline. Please start Ollama and ensure Llama 3.2:3b is installed.');
+          if (data.error_type === 'MODEL_NOT_LOADED') {
+            setError('Speech recognition model not loaded. Please contact administrator.');
           } else if (data.error_type === 'EMPTY_AUDIO') {
             setError('No speech detected. Please speak clearly and try again.');
-          } else if (data.error_type === 'UNSUPPORTED_LANGUAGE') {
-            setError(data.error || 'Unsupported language selected.');
           } else {
             setError(data.error || 'Failed to process speech');
           }
         }
       };
-      
+
       reader.onerror = () => {
         setError('Failed to read audio file');
         setIsProcessingSpeech(false);
       };
-      
     } catch (err) {
       console.error('Speech processing error:', err);
       setError('Network error. Please check your connection.');
@@ -246,118 +231,76 @@ const MaintenanceInput = ({ onSubmit, initialValue = '' }) => {
   return (
     <div className="maintenance-input-container">
       <div className="input-header">
-        <label htmlFor="maintenance-description">
-          Maintenance Description
-          <span className="input-hint">Type or speak your description</span>
-        </label>
-        
-        <div className="button-group">
-          {/* Language Selector for Voice Input */}
-          {speechSupported && (
-            <div className="language-selector">
-              <label htmlFor="speech-language" className="sr-only">Speech Language</label>
-              <select 
-                id="speech-language"
-                value={selectedLanguage}
-                onChange={(e) => setSelectedLanguage(e.target.value)}
-                className="language-select"
-                disabled={isListening || isProcessingSpeech}
-                title="Select speech input language"
-              >
-                {supportedLanguages.map(lang => (
-                  <option key={lang.code} value={lang.code}>
-                    🌐 {lang.native}
-                  </option>
-                ))}
-              </select>
-            </div>
+        <label htmlFor="description">Maintenance Description</label>
+        <div className="input-controls">
+          {/* Language selector */}
+          {supportedLanguages.length > 0 && (
+            <select
+              value={selectedLanguage}
+              onChange={(e) => setSelectedLanguage(e.target.value)}
+              className="language-select"
+              disabled={isListening || isProcessingSpeech}
+            >
+              {supportedLanguages.map(lang => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.native}
+                </option>
+              ))}
+            </select>
           )}
-          
-          {/* Voice Input Button */}
+
+          {/* Voice input button */}
           {speechSupported && (
             <button
               type="button"
+              className={`voice-btn ${isListening ? 'listening' : ''}`}
               onClick={isListening ? stopRecording : startRecording}
-              className={`mic-button ${isListening ? 'listening' : ''}`}
-              title={isListening ? 'Stop recording' : 'Start voice input'}
               disabled={isProcessingSpeech || isEnhancing}
+              title={isListening ? 'Stop recording' : 'Start voice input'}
             >
-              <span className="mic-icon">{isListening ? '⏹️' : '🎤'}</span>
-              {isListening ? 'Stop Recording' : 'Voice Input'}
+              {isListening ? '⏹️ Stop' : '🎤 Voice'}
             </button>
           )}
-          
-          {/* AI Enhance Button */}
+
+          {/* AI Enhancement button */}
           <button
             type="button"
+            className="enhance-btn"
             onClick={handleEnhance}
-            disabled={isEnhancing || !description.trim() || isProcessingSpeech}
-            className="enhance-button"
-            title="Improve description with AI"
+            disabled={!description.trim() || isEnhancing || isProcessingSpeech || isListening}
+            title="Enhance description with AI"
           >
-            <span className="ai-icon">✨</span>
-            {isEnhancing ? 'Enhancing...' : 'Enhance with AI'}
+            {isEnhancing ? '⏳ Enhancing...' : '✨ Enhance with AI'}
           </button>
         </div>
       </div>
 
-      {/* Main Textarea - Always Editable */}
+      {/* Text area */}
       <textarea
-        id="maintenance-description"
+        id="description"
+        className="description-textarea"
         value={description}
         onChange={handleManualInput}
-        placeholder="Type your maintenance description here, or use voice input in any Indian language..."
-        rows="6"
-        className={`
-          maintenance-textarea
-          ${isListening ? 'listening-active' : ''} 
-          ${isProcessingSpeech ? 'processing' : ''}
-        `}
-        disabled={isEnhancing || isProcessingSpeech}
-        required
+        placeholder="Type maintenance description or use voice input..."
+        rows={6}
+        disabled={isProcessingSpeech || isListening}
       />
 
-      {/* Status Indicators */}
-      {isListening && (
-        <div className="status-indicator listening-indicator">
-          <span className="pulse"></span>
-          <span className="status-text">
-            🎤 Listening in {supportedLanguages.find(l => l.code === selectedLanguage)?.name || 'selected language'}... 
-            Speak now
-          </span>
-        </div>
-      )}
-
+      {/* Processing indicator */}
       {isProcessingSpeech && (
-        <div className="status-indicator processing-indicator">
-          <span className="spinner"></span>
-          <span className="status-text">
-            Processing speech → Transcribing → Translating → Enhancing...
-          </span>
+        <div className="processing-indicator">
+          <span className="spinner">🔄</span> Processing speech...
         </div>
       )}
 
-      {/* Error Messages */}
-      {error && (
-        <div className="error-message">
-          <span className="error-icon">⚠️</span>
-          <span>{error}</span>
-        </div>
-      )}
+      {/* Status messages */}
+      {success && <div className="success-message">{success}</div>}
+      {error && <div className="error-message">{error}</div>}
 
-      {/* Success Messages */}
-      {success && (
-        <div className="success-message">
-          <span className="success-icon">✓</span>
-          <span>{success}</span>
-        </div>
-      )}
-
-      {/* Help Text */}
-      <div className="input-help">
+      {/* Help text */}
+      <div className="help-text">
         <small>
-          💡 Tip: You can type manually or use voice input in Hindi, Gujarati, Tamil, Telugu, and 6 other Indian languages. 
-          Click "Enhance with AI" to improve any description.
+          💡 Tip: Use voice input for quick notes, then enhance with AI for professional formatting
         </small>
       </div>
     </div>
