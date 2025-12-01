@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './login.css';
 import api from '../services/api';
+import logo from './logo.png';
 
 const Login = ({ onLoginSuccess, onOpenRegistration }) => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ const Login = ({ onLoginSuccess, onOpenRegistration }) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     setError('');
-    
+
     if (name === 'role') {
       setRoleHint(`Tip: The username must belong to the ${value} role.`);
     }
@@ -24,7 +25,7 @@ const Login = ({ onLoginSuccess, onOpenRegistration }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!formData.username.trim() || !formData.password.trim()) {
       setError('Please enter both username and password');
       return;
@@ -60,89 +61,92 @@ const Login = ({ onLoginSuccess, onOpenRegistration }) => {
 
       <div className="login-form-card">
         <div className="login-header">
-          <img src={logo} alt="QRail Logo" className="app-icon" />
-          <h2>QRail</h2>
+          <div className="logo-title-row">
+            <img src={logo} alt="QRail Logo" className="app-icon" />
+            <h2>QRail</h2>
+          </div>
+
           <p style={{ fontWeight: 900, color: 'black' }}>Indian Railways</p>
           <p>Smart QR-based tracking system for railway infrastructure</p>
         </div>
 
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div className="login-text-field">
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="login-text-field">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            required
+            placeholder=" "
+          />
+          <label htmlFor="username">Username</label>
+          <div className="field-border"></div>
+        </div>
+
+        <div className="login-text-field">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+            placeholder=" "
+          />
+          <label htmlFor="password">Password</label>
+          <div className="field-border"></div>
+        </div>
+
+        <div className="login-text-field">
+          <div className="role-select">
+            <select
+              id="userRole"
+              name="role"
+              value={formData.role}
               onChange={handleInputChange}
+              className="role-dropdown"
               required
-              placeholder=" "
-            />
-            <label htmlFor="username">Username</label>
-            <div className="field-border"></div>
-          </div>
-
-          <div className="login-text-field">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-              placeholder=" "
-            />
-            <label htmlFor="password">Password</label>
-            <div className="field-border"></div>
-          </div>
-
-          <div className="login-text-field">
-            <div className="role-select">
-              <select
-                id="userRole"
-                name="role"
-                value={formData.role}
-                onChange={handleInputChange}
-                className="role-dropdown"
-                required
-              >
-                <option value="manufacturer">Manufacturer</option>
-                <option value="worker">Worker</option>
-                <option value="engineer">Engineer</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
-          </div>
-
-          {roleHint && <div className="role-hint show">{roleHint}</div>}
-
-          <button type="submit" className={`login-button ${loading ? 'loading' : ''}`} disabled={loading}>
-            <span className="button-content">
-              <span className="material-icons-round">login</span>
-              {loading ? 'Signing In...' : 'Sign In'}
-            </span>
-            <div className="ripple"></div>
-          </button>
-
-          <div style={{ marginTop: '12px', textAlign: 'center' }}>
-            <button
-              type="button"
-              className="md-button outline"
-              onClick={onOpenRegistration}
             >
-              <span className="material-icons-round">person_add</span>
-              Register New Account
-            </button>
+              <option value="manufacturer">Manufacturer</option>
+              <option value="worker">Worker</option>
+              <option value="engineer">Engineer</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
-        </form>
+        </div>
 
-        {error && (
-          <div className="login-error" style={{ display: 'flex' }}>
-            <span className="material-icons-round">error_outline</span>
-            <span>{error}</span>
-          </div>
-        )}
-      </div>
+        {roleHint && <div className="role-hint show">{roleHint}</div>}
+
+        <button type="submit" className={`login-button ${loading ? 'loading' : ''}`} disabled={loading}>
+          <span className="button-content">
+            <span className="material-icons-round">login</span>
+            {loading ? 'Signing In...' : 'Sign In'}
+          </span>
+          <div className="ripple"></div>
+        </button>
+
+        <div style={{ marginTop: '12px', textAlign: 'center' }}>
+          <button
+            type="button"
+            className="md-button outline"
+            onClick={onOpenRegistration}
+          >
+            <span className="material-icons-round">person_add</span>
+            Register New Account
+          </button>
+        </div>
+      </form>
+
+      {error && (
+        <div className="login-error" style={{ display: 'flex' }}>
+          <span className="material-icons-round">error_outline</span>
+          <span>{error}</span>
+        </div>
+      )}
     </div>
+    </div >
   );
 };
 
