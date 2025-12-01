@@ -470,7 +470,7 @@ For questions, suggestions, or issues:
   
   ---
   
-  **Made with ❤️ by Dhruv Gohel for Railway Asset Management**
+  **Made Dhruv Gohel for Railway Asset Management**
   
   *"Modernizing Indian Railways through Digital Innovation"*
   
