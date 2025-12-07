@@ -1,4 +1,4 @@
-# QRail-3: Railway Asset Management & Maintenance System
+# QRail: Railway Asset Management & Maintenance System
 
 ![QRail Logo](https://img.shields.io/badge/comprehensive railway asset management and maintenance system)
 ![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen)
@@ -7,7 +7,7 @@
 
 ## 📋 Overview
 
-**QRail-3** is a comprehensive railway asset management and maintenance system project designed to revolutionize railway asset management and maintenance tracking through QR code integration. The system provides a comprehensive digital solution for Indian Railways to efficiently track, manage, and maintain critical railway assets with minimal manual intervention.
+**QRail** is a comprehensive railway asset management and maintenance system project designed to revolutionize railway asset management and maintenance tracking through QR code integration. The system provides a comprehensive digital solution for Indian Railways to efficiently track, manage, and maintain critical railway assets with minimal manual intervention.
 
 ### Problem Statement
 Indian Railways operates over 5 lakh railway assets across the country. Current maintenance and asset tracking relies heavily on manual processes, leading to:
