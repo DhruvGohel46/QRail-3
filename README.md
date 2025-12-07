@@ -30,47 +30,71 @@ QRail-3 leverages QR codes, web technology, and data analytics to provide:
 ## 🌟 Features
 
 ### ✨ Core Features
-- **QR-based Asset Identification**: Scan QR codes to instantly retrieve asset information
-- **Asset Management Dashboard**: View, create, and manage railway assets
-- **Maintenance Tracking**: Record and track maintenance history for each asset
-- **User Database**: Multi-user support with role-based access (Admin, Maintenance Staff, Inspectors)
+- **QR-based Asset Identification**: Scan QR codes via camera or file upload to instantly retrieve asset information
+- **QR Code Generation**: Generate QR codes for assets in multiple formats (PNG, SVG, PDF)
+- **Asset Management Dashboard**: View, create, update, and delete railway assets with advanced search
+- **Maintenance Tracking**: Record and track maintenance history for each asset with detailed logs
+- **User Management System**: Multi-user support with role-based access control (Admin, Manufacturer, Engineer, Worker)
+- **User Registration & Approval**: Email-based OTP verification and admin approval workflow
 - **XML-based Data Storage**: Lightweight, portable database for asset and user information
-- **Automated Asset ID Generation**: Unique identifiers for each railway asset
-- **Maintenance Schedule Generation**: AI-assisted maintenance recommendations based on asset age and usage
-- **Statistics & Analytics**: Real-time insights into asset health and maintenance status
+- **Automated Asset ID Generation**: Unique identifiers for each railway asset with intelligent naming
+- **Statistics & Analytics Dashboard**: Real-time insights into asset health, maintenance status, and user activity
+- **Reports & Export**: Export asset data in Excel (XLSX) and XML formats
 - **Responsive Web Interface**: Works seamlessly on desktop and mobile devices
+- **Session Management**: Secure session-based authentication with role-based permissions
+
+### 🤖 AI/ML Features (Implemented)
+- **Speech Recognition**: Voice-to-text maintenance logging using Vosk offline speech recognition (English-Indian accent)
+- **AI Description Enhancement**: Automatic maintenance description enhancement using local Llama 3.2 model via Ollama
+- **Real-time QR Scanning**: Camera-based QR code detection with live frame processing
 
 ### 🔮 Planned Features (Roadmap)
-- 🤖 AI/NLP Integration for maintenance data analysis using Llama 3.2 model
 - 📱 Mobile app for on-field maintenance staff
-- 🗣️ Voice input support (Indian language recognition via AI4Bharat)
-- 📋 Advanced analytics and predictive maintenance
-- ☁️ Cloud database integration
-- 🔐 Enhanced authentication & encryption
+- 🗣️ Multi-language voice input support (Hindi, Gujarati, Telugu via Vosk)
+- 📋 Advanced analytics and predictive maintenance algorithms
+- ☁️ Cloud database integration (PostgreSQL/MongoDB)
+- 🔐 Enhanced authentication with JWT tokens and password hashing
 - 📡 Real-time IoT sensor integration
+- 🔔 Push notifications for maintenance schedules
 
 ---
 
 ## 🏧 Project Structure
 
 ```
-QRail-3/
-├── Frontend/                           # React/Next.js web interface
-│   ├── components/                     # React components
-│   ├── pages/                          # Page components
-│   ├── styles/                         # CSS and styling
+QRail/
+├── Frontend/                           # React web interface
+│   ├── src/
+│   │   ├── components/                 # React components
+│   │   │   ├── Admin/                  # Admin panel components
+│   │   │   ├── Assets/                 # Asset management components
+│   │   │   ├── Maintenance/            # Maintenance tracking components
+│   │   │   ├── QRGenerator/            # QR code generation components
+│   │   │   ├── Reports/                # Reports and analytics components
+│   │   │   └── shared/                 # Shared UI components
+│   │   ├── services/                   # API service layer
+│   │   ├── styles/                     # CSS and styling
+│   │   └── app.js                      # Main React app
 │   ├── public/                         # Static assets
 │   └── package.json                    # Frontend dependencies
 │
 ├── backend/                            # Flask REST API
-│   ├── routes/                         # API endpoints
-│   ├── models/                         # Data models
-│   ├── utils/                          # Utility functions
+│   ├── app.py                          # Main Flask application
+│   ├── railway_xml_db.py               # XML database manager
+│   ├── railway_user_manager.py         # User management system
+│   ├── qr_generator.py                 # QR code generation
+│   ├── qr_reader.py                    # QR code scanning
+│   ├── speech_processor.py             # Vosk speech recognition
+│   ├── email_sender.py                 # Email notification system
+│   ├── qr_codes/                       # Generated QR code images
 │   └── requirements.txt                # Python dependencies
 │
+├── models/                             # ML/AI models
+│   └── vosk-model-en-in-0.5/          # Vosk speech recognition model
+│
 ├── generate_railway_database.py        # Script to generate sample railway assets
-├── railway_assets.xml                  # Railway assets database (sample data)
-├── users_database.xml                  # User credentials and roles (sample data)
+├── railway_assets.xml                  # Railway assets database
+├── users_database.xml                  # User credentials and roles
 ├── QRailrun.bat                        # Windows batch script to run the application
 ├── README.md                           # This file
 └── .gitignore                         # Git ignore rules
@@ -80,6 +104,13 @@ QRail-3/
 
 | File | Purpose |
 |------|----------|
+| `backend/app.py` | Main Flask application with all API endpoints |
+| `backend/railway_xml_db.py` | XML database manager for assets and maintenance records |
+| `backend/railway_user_manager.py` | User management system with role-based access control |
+| `backend/qr_generator.py` | QR code generation in multiple formats |
+| `backend/qr_reader.py` | QR code scanning and detection |
+| `backend/speech_processor.py` | Vosk-based speech recognition module |
+| `backend/email_sender.py` | SMTP email notification system |
 | `generate_railway_database.py` | Command-line tool to generate railway asset XML database with customizable sample data |
 | `railway_assets.xml` | Stores all railway asset information (ID, type, location, status, maintenance history) |
 | `users_database.xml` | Stores user credentials, roles, and permissions |
@@ -90,27 +121,36 @@ QRail-3/
 ## 🖠️ Tech Stack
 
 ### Frontend
-- **React** / **Next.js** - Modern UI framework
+- **React 18.2** - Modern UI framework
 - **JavaScript (ES6+)** - Client-side logic
 - **HTML5 & CSS3** - Markup and styling
-- **Material Design / Tailwind CSS** - UI components and responsive design
+- **html5-qrcode** - QR code scanning library
+- **Axios** - HTTP client for API calls
+- **React Scripts** - Build tooling
 
 ### Backend
 - **Python 3.8+** - Server-side language
-- **Flask** - Lightweight web framework
+- **Flask 3.1.2** - Lightweight web framework
 - **Flask-CORS** - Cross-origin request handling
-- **QR Code Library** - QR generation and scanning
+- **qrcode / segno** - QR code generation libraries
+- **pyzbar / qreader** - QR code scanning and detection
+- **openpyxl** - Excel file generation
+- **ollama** - Local AI model integration (Llama 3.2)
+
+### AI/ML
+- **Vosk** - Offline speech recognition (English-Indian accent model)
+- **Ollama** - Local LLM inference server
+- **Llama 3.2:3b** - Lightweight language model for text enhancement
+- **OpenCV** - Image processing for QR detection
 
 ### Database
-- **XML** - Lightweight data storage (current)
-- **SQLite / PostgreSQL** - Planned for production
+- **XML** - Lightweight data storage (current implementation)
 - **JSON** - Configuration and API responses
+- **SQLite / PostgreSQL** - Planned for production scaling
 
-### Tools & Libraries
-- **generate_railway_database.py** - Custom asset database generator
-- **PIL/Pillow** - QR code generation
-- **pyzbar** - QR code scanning
-- **OpenCV** - Image processing (future AI integration)
+### Email & Communication
+- **SMTP** - Email notifications for OTP, approvals, and alerts
+- **Session Management** - Secure session-based authentication
 
 ---
 
@@ -146,6 +186,9 @@ source venv/bin/activate
 
 # Install Python dependencies
 pip install -r requirements.txt
+
+# Note: For AI features, you'll also need Ollama installed separately
+# Download from https://ollama.ai and run: ollama pull llama3.2:3b
 ```
 
 ### Step 3: Frontend Setup
@@ -170,7 +213,33 @@ python generate_railway_database.py --samples 50 --output railway_assets.xml
 python generate_railway_database.py --help
 ```
 
-### Step 5: Run the Application
+### Step 5: Configure Optional Features
+
+#### Email Configuration (Optional - for OTP and notifications)
+```bash
+# Set environment variables for SMTP
+export SMTP_HOST=smtp.gmail.com
+export SMTP_PORT=587
+export SMTP_USER=your-email@gmail.com
+export SMTP_PASS=your-app-password
+export SMTP_FROM=your-email@gmail.com
+```
+
+#### AI Model Setup (Optional - for description enhancement)
+```bash
+# Install and start Ollama
+# Download from https://ollama.ai
+# Pull Llama 3.2 model:
+ollama pull llama3.2:3b
+```
+
+#### Speech Recognition Setup (Optional)
+```bash
+# Vosk model is included in models/vosk-model-en-in-0.5/
+# Ensure the model path is correct in speech_processor.py
+```
+
+### Step 6: Run the Application
 
 #### Option A: Using QRailrun.bat (Windows)
 ```bash
@@ -184,40 +253,55 @@ QRailrun.bat
 ```bash
 cd backend
 python app.py
-# Backend runs on http://localhost:5000
+# Backend runs on http://localhost:8000 (default port)
 ```
 
 **Terminal 2 - Frontend:**
 ```bash
 cd Frontend
-npm run dev
+npm start
 # Frontend runs on http://localhost:3000
 ```
 
 ### Access the Application
 - **Frontend**: Open browser and go to `http://localhost:3000`
-- **API Docs**: `http://localhost:5000/api/docs` (if enabled)
+- **Backend API**: `http://localhost:8000`
+- **Health Check**: `http://localhost:8000/health`
 
 ---
 
 ## 🚀 Usage Guide
 
-### For Railway Maintenance Staff
+### For Railway Workers/Engineers
 
-1. **Login**: Use your credentials from the user database
-2. **Dashboard**: View all assigned assets and maintenance schedules
-3. **Scan Asset**: Click "Scan QR Code" and scan the QR code on an asset
-4. **View Details**: See comprehensive asset information and history
-5. **Log Maintenance**: Record maintenance activities with date and notes
-6. **Generate Report**: Export maintenance reports for audit purposes
+1. **Login**: Select your role (Worker/Engineer) and enter credentials
+2. **Dashboard**: View assigned assets and recent maintenance activities
+3. **Scan Asset**: Use camera or upload QR code image to retrieve asset information
+4. **View Asset Details**: See comprehensive asset information, location, and maintenance history
+5. **Log Maintenance**: 
+   - Record maintenance activities with date, type, and description
+   - Use voice input for hands-free maintenance logging
+   - Enhance descriptions with AI for professional documentation
+6. **Generate QR Codes**: Create QR codes for new assets in multiple formats
 
-### For Railway Inspectors/Admins
+### For Manufacturers
 
-1. **Asset Management**: Add, edit, or remove railway assets
-2. **User Management**: Create and manage user accounts and permissions
-3. **View Analytics**: Access dashboard with real-time asset health metrics
-4. **Generate Schedules**: Create automated maintenance schedules
-5. **Export Data**: Export asset and maintenance data in multiple formats
+1. **Login**: Select "Manufacturer" role and enter credentials
+2. **Add Assets**: Create new railway assets with automatic ID generation
+3. **Asset Management**: Update asset information and manufacturing details
+4. **QR Code Generation**: Generate and download QR codes for assets
+
+### For Admins
+
+1. **User Management**: 
+   - Approve or reject pending user registrations
+   - Create new admin accounts
+   - Delete user accounts
+   - View all active and pending users
+2. **Asset Management**: Full CRUD operations on all assets
+3. **Analytics Dashboard**: View real-time statistics on assets, maintenance, and users
+4. **Reports & Export**: Export asset data in Excel or XML formats
+5. **System Configuration**: Manage system settings and permissions
 
 ### Command-Line Usage
 
@@ -236,75 +320,129 @@ python generate_railway_database.py --help
 
 ## 📋 API Endpoints (Backend)
 
+### Authentication & User Management
+```
+POST   /api/login               - User login with role verification
+POST   /api/register            - Register new user (requires OTP verification)
+POST   /api/logout              - Logout current user
+GET    /api/check-session       - Check if user is authenticated
+GET    /api/profile             - Get current user profile
+POST   /api/send-otp            - Send OTP to email for verification
+POST   /api/verify-otp          - Verify OTP code
+POST   /api/test-email          - Test SMTP email configuration
+```
+
+### Admin Endpoints
+```
+GET    /api/admin/users         - Get all users (active and pending)
+GET    /api/admin/pending-users - Get pending user registrations
+POST   /api/admin/approve-user  - Approve pending user registration
+POST   /api/admin/reject-user   - Reject pending user registration
+DELETE /api/admin/delete-user   - Delete active user
+POST   /api/admin/create-admin  - Create new admin user
+```
+
 ### Assets
 ```
-GET    /api/assets              - Get all assets
-POST   /api/assets              - Create new asset
-GET    /api/assets/<id>         - Get specific asset
-PUT    /api/assets/<id>         - Update asset
-DELETE /api/assets/<id>         - Delete asset
+GET    /api/assets              - Get all assets (with optional filters)
+POST   /api/assets              - Create new asset (auto-generates asset ID)
+PUT    /api/assets/<asset_id>   - Update asset information
+DELETE /api/assets/<asset_id>  - Delete asset and associated maintenance records
 ```
 
 ### Maintenance Records
 ```
 GET    /api/maintenance         - Get all maintenance records
 POST   /api/maintenance         - Create maintenance record
-GET    /api/maintenance/<id>    - Get specific record
 ```
 
-### Users
+### QR Code Operations
 ```
-GET    /api/users               - Get all users
-POST   /api/users/register      - Register new user
-POST   /api/users/login         - User login
-GET    /api/users/<id>          - Get user details
+POST   /api/scan-qr             - Scan QR from text/JSON data
+POST   /api/scan-qr-file        - Scan QR from uploaded image file
+POST   /api/scan-qr-frame       - Real-time QR scanning from camera frames
 ```
 
-### QR Codes
+### AI & Speech Processing
 ```
-POST   /api/qr/generate         - Generate QR code for asset
-GET    /api/qr/<asset_id>       - Get QR code image
+GET    /api/speech/languages     - Get supported speech recognition languages
+POST   /api/speech/process-audio - Convert speech to text using Vosk
+POST   /api/ai/enhance-description - Enhance maintenance description using Llama 3.2
+```
+
+### Reports & Analytics
+```
+GET    /api/reports/stats       - Get dashboard statistics
+GET    /api/reports/export      - Export data (format: excel or xml)
+```
+
+### Health & Status
+```
+GET    /health                  - Health check endpoint
+GET    /                        - Serve React SPA
 ```
 
 ---
 
-## 🤖 AI/ML Integration (In Progress)
+## 🤖 AI/ML Integration
+
+### Implemented AI Features:
+
+**1. Speech Recognition (Vosk) ✅**
+- Offline speech-to-text conversion
+- English-Indian accent model support
+- Real-time audio processing from browser
+- Base64 audio input support
+- Used for voice-based maintenance logging
+
+**2. AI Description Enhancement (Ollama + Llama 3.2) ✅**
+- Local LLM integration via Ollama
+- Automatic maintenance description enhancement
+- Professional technical writing assistance
+- Preserves factual information while improving clarity
+- Temperature-controlled responses for consistency
+
+**3. Advanced QR Code Detection ✅**
+- Real-time camera-based QR scanning
+- Multiple QR detection libraries (pyzbar, qreader)
+- Image processing with OpenCV
+- Frame-by-frame scanning for live detection
 
 ### Planned AI Features:
 
 **1. Maintenance Prediction**
 - Using historical data to predict when assets need maintenance
 - Reducing downtime and extending asset lifecycle
+- Machine learning models for predictive analytics
 
-**2. Voice Input Support**
-- Indian language recognition (Hindi, Gujarati, Tamil, etc.)
-- Using AI4Bharat models for language processing
-- Voice-to-text for maintenance notes
+**2. Multi-language Voice Input**
+- Hindi, Gujarati, Telugu language recognition
+- Vosk models integration
+- Regional language support for maintenance notes
 
 **3. Natural Language Processing**
 - Automated analysis of maintenance reports
 - Anomaly detection in asset behavior
-- Smart recommendations
+- Smart maintenance recommendations
 
 **4. Computer Vision**
 - Asset condition assessment via images
-- QR code scanning with image processing
 - Damage detection and classification
-
-### Current Implementation Status:
-- ✅ QR code generation and basic scanning
-- 🔄 Local Llama 3.2 model integration (in progress)
-- ⏳ AI4Bharat language models (awaiting access)
-- ⏳ Advanced analytics dashboard
+- Automated visual inspection
 
 ---
 
 ## 🔐 Security Features
 
-- **User Authentication**: Secure login with role-based access control
+- **User Authentication**: Secure session-based login with role verification
+- **Role-Based Access Control (RBAC)**: Granular permissions for different user roles
+- **OTP Email Verification**: Two-factor authentication for user registration
+- **Session Management**: Secure HTTP-only session cookies with SameSite protection
 - **Data Validation**: Input validation to prevent injection attacks
-- **CORS Protection**: Configured cross-origin request handling
-- **Future**: Password hashing, JWT tokens, SSL/TLS encryption
+- **CORS Protection**: Configured cross-origin request handling for development
+- **Admin Approval Workflow**: New user registrations require admin approval
+- **Email Notifications**: Automated emails for approvals, rejections, and account changes
+- **Future Enhancements**: Password hashing (bcrypt), JWT tokens, SSL/TLS encryption
 
 ---
 
@@ -404,7 +542,7 @@ For questions, suggestions, or issues:
 - [Flask Documentation](https://flask.palletsprojects.com)
 - [React Documentation](https://react.dev)
 - [QR Code Technology Guide](https://www.qr-code-generator.com)
-- [AI4Bharat - Indian Language Models](https://ai4bharat.iitm.ac.in)
+- [Vosk Speech Recognition](https://alphacephei.com/vosk)
 - [Llama 3.2 Model Hub](https://www.llama.com)
 - [Hugging Face Model Repository](https://huggingface.co)
 
@@ -412,40 +550,56 @@ For questions, suggestions, or issues:
 
 ## 🎯 Roadmap & Timeline
 
-### Phase 1: MVP (November - December 2025) ✅ In Progress
+### Phase 1: MVP ✅ Completed
 - ✅ Core QR code asset tracking system
+- ✅ QR code generation (PNG, SVG, PDF formats)
 - ✅ Basic CRUD operations for assets
-- ✅ User authentication & role-based access
+- ✅ User authentication & role-based access (4 roles)
 - ✅ XML database integration
 - ✅ Web dashboard (React)
 - ✅ Flask backend API
-- 🔄 Integration testing
+- ✅ User registration with OTP email verification
+- ✅ Admin approval workflow
+- ✅ Maintenance tracking system
+- ✅ Reports & export functionality (Excel/XML)
 
-### Phase 2: Enhancement (January - February 2026)
-- 📋 Advanced analytics dashboard
-- 📋 AI4Bharat language model integration
-- 📋 Voice input support (Hindi, Gujarati, etc.)
+### Phase 2: AI/ML Integration ✅ Completed
+- ✅ Speech recognition with Vosk (English-Indian accent)
+- ✅ AI description enhancement with Ollama/Llama 3.2
+- ✅ Real-time QR code scanning from camera
+- ✅ Advanced analytics dashboard
+- ✅ Email notification system
+
+### Phase 3: Enhancement (In Progress)
+- 🔄 Mobile-responsive design refinements
+- 🔄 Performance optimization
+- 📋 Multi-language voice input (Hindi, Gujarati, Telugu)
 - 📋 Maintenance prediction algorithms
-- 📋 Mobile-responsive design refinements
-- 📋 Export to PDF/Excel functionality
+- 📋 Advanced reporting with charts and graphs
+- 📋 PDF export functionality
 
-### Phase 3: Production Ready (March 2026)
+### Phase 4: Production Ready (Planned)
 - 📋 Cloud deployment (AWS/Azure)
-- 📋 Real-time notifications & alerts
-- 📋 Advanced reporting & analytics
-- 📋 IoT sensor integration
+- 📋 Real-time push notifications
 - 📋 Database migration to PostgreSQL
-- 📋 Performance optimization
+- 📋 JWT token authentication
+- 📋 Password hashing (bcrypt)
+- 📋 SSL/TLS encryption
+- 📋 IoT sensor integration
+- 📋 Mobile app development
 
 ---
 
 ## 📣 Project Statistics
 
-- **Total Lines of Code**: 5000+ (Python + JavaScript)
-- **Frontend Components**: 15+
-- **API Endpoints**: 20+
-- **Database Records**: XML with 100+ sample assets
-- **Development Time**: 2+ months
+- **Total Lines of Code**: 8000+ (Python + JavaScript/JSX)
+- **Frontend Components**: 30+ React components
+- **Backend Modules**: 8 Python modules
+- **API Endpoints**: 25+ RESTful endpoints
+- **User Roles**: 4 (Admin, Manufacturer, Engineer, Worker)
+- **Database**: XML-based with extensible architecture
+- **AI/ML Models**: Vosk (speech), Llama 3.2 (text enhancement)
+- **Development Time**: 3+ months
 - **Team Members**: Solo project + mentor guidance
 
 ---
@@ -474,8 +628,8 @@ For questions, suggestions, or issues:
   
   *"Modernizing Indian Railways through Digital Innovation"*
   
-  Last Updated: November 29, 2025  
-  Current Version: 1.0.0 (Beta)  
+  Last Updated: January 2025  
+  Current Version: 2.0.0 (Beta)  
   Status: 🟢 Active Development
   
 </div>
